@@ -1,4 +1,4 @@
-import type { Config } from "tailwindcss";
+import type { Config } from 'tailwindcss';
 
 const config: Config = {
   content: [
@@ -7,7 +7,23 @@ const config: Config = {
     "./app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
+        screens: {
+      sm: "0px",
+      md: "481px",
+      lg: "768px",
+      xl: "1024px",
+      "2xl": "1280px",
+    },
     extend: {
+      colors: {
+        spotifyGreen: '#1db954',
+        spotifyOpacityGreen: 'rgba(29,185,84, 0.75)',
+        spotifyDarkGray: '#212121',
+        spotifyOpacityDarkGray:'rgba(33,33,33, 0.6)',
+        spotifyBlack: '#121212',
+        spotifyMediumGray: '#535353',
+        spotifyLightGray:'#b3b3b3',
+      },
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
         "gradient-conic":
@@ -15,6 +31,6 @@ const config: Config = {
       },
     },
   },
-  plugins: [],
+  plugins: [require('daisyui')],
 };
 export default config;
