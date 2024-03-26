@@ -23,20 +23,20 @@ function Cover({ title, imageURL, artists, close }: Props) {
   return (
       <div className='flex flex-col gap-6 p-2 w-full'>
           <div className="flex justify-between gap-3">
-              <p>{artists[0]}</p>
+              <p>{artists ? artists[0] : ''}</p>
 
               <button onClick={close}>
                   <IoCloseOutline size={24} />
               </button>
           </div>
-              <Image className="rounded-lg object-cover sm:w-36 sm:h-36 lg:w-48 lg:h-48 self-center" src={imageURL} alt={title} />
+              <Image width={144} height={144} className="rounded-lg object-cover sm:w-36 sm:h-36 lg:w-48 lg:h-48 self-center" src={imageURL ? imageURL : ''} alt={title} />
           
           <div className="flex justify-between gap-6 w-full ">
               <div className="flex flex-col gap-1">     
-                  <Marquee speed={20} play={title.trim().length > 10} className='lg:w-1/2 xl:max-w-52' pauseOnHover autoFill={false} direction='right'>            
+                  <Marquee speed={20} play={title ? title.trim().length > 10 : false} className='lg:w-1/2 xl:max-w-52' pauseOnHover autoFill={false} direction='right'>            
           <p className='text-xl px-1 tracking-wide font-bold'>{title}</p>
                   </Marquee>    
-              <p className=' text-sm font-medium'>{artists.join(", ")}</p>
+              <p className=' text-sm font-medium'>{artists ? artists.join(", ") : ''}</p>
               </div>
               
               <div className="flex gap-4">

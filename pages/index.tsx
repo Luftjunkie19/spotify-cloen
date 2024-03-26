@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 
 import { getSession } from 'next-auth/react';
 import { useRouter } from 'next/router';
+import { useSelector } from 'react-redux';
 
 import InitalTabs from '@/components/home-page/InitalTabs';
 import MusicGenres from '@/components/home-page/playlists/MusicGenres';
@@ -9,7 +10,7 @@ import RecentlyAdded from '@/components/home-page/playlists/RecentlyAdded';
 
 export default function Home() {
 const router = useRouter();
-
+  const showRight = useSelector((state: any) => state.playmusic.showRightBar);
   useEffect(() => {
     getSession().then((result) => {
       if (!result) {
@@ -25,9 +26,11 @@ const router = useRouter();
     <div className='flex flex-col gap-6'>
       <InitalTabs />
 
- <MusicGenres closedRight={true} />
-      <RecentlyAdded closedRight={true} />
+ <MusicGenres closedRight={showRight} />
+      <RecentlyAdded closedRight={showRight} />
     </div>
   );
 }
+
+
 

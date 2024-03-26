@@ -7,6 +7,7 @@ import {
   useSelector,
 } from 'react-redux';
 
+import { genres } from '@/assets/MusicGenres';
 import { songModalActions } from '@/contexts/SongModalContext';
 import useCurrentUser from '@/hooks/useCurrentUser';
 
@@ -16,6 +17,7 @@ function AddSongModal() {
   const [songName, setSongName] = useState('');
   const [image, setImage] = useState<string | null>(null);
   const dispatch = useDispatch();
+  const [songGenre, setSongGenre] = useState<string | null>(null);
   const isVisible = useSelector((state: any) => state.songmodal.isShown);
   
   const selectImage = (e:any) => {
@@ -53,11 +55,12 @@ function AddSongModal() {
     console.log(user);
     await fetch('/api/addSong', {
       method: 'POST',
-      body: JSON.stringify({ image, songName, audioFile, artistId: user.id, songCover: image}),
+      body: JSON.stringify({ image, songName, audioFile, artistId: user.id, songCover: image, genre: songGenre}),
       headers: {
         'Content-Type':'application/json',
       }
-    })
+    });
+    closeModal();
     
   }
 
@@ -83,7 +86,15 @@ function AddSongModal() {
 
               <p>Song Cover:</p>
               <input onChange={selectImage} accept='image/*' type="file" className="file-input file-input-bordered bg-spotifyGreen w-full max-w-xs" />
-</div>
+        </div>
+        
+        <div className="">
+          <p>Song genre:</p>
+          <select onChange={(e)=>setSongGenre(e.target.value)} className="select select-bordered w-full max-w-xs">
+  <option disabled selected>Select music genre</option>
+            {genres.map((item, i) => (<option value={item.genre as string} key={i}>{item.genre}</option>))}
+</select>
+        </div>
 
               <div className="">     
               <p>Audio file:</p>

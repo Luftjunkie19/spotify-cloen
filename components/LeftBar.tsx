@@ -1,6 +1,7 @@
 import React, { Key } from 'react';
 
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 import {
   FaHome,
   FaSearch,
@@ -30,7 +31,9 @@ interface LinkObject{
 }
 
 function LeftBar({isSwipedLeft, isSwipedRight, onSwitchOff}: Props) {
-  const { data:user } = useCurrentUser();
+  const { data: user } = useCurrentUser();
+  const router = useRouter();
+  
   const linksArray: LinkObject[] = [
     {
     path: '/',
@@ -78,9 +81,10 @@ function LeftBar({isSwipedLeft, isSwipedRight, onSwitchOff}: Props) {
       </div>
       <div className="flex items-center flex-col gap-4 sm:p-4 lg:p-2">
         {linksArray.map((link, i) => (
-          <Link href={`${link.path}`} key={i} className='flex transition p-3 2xl:w-full sm:justify-center 2xl:justify-start rounded-full hover:bg-spotifyOpacityGreen gap-4 items-center '>
+          <Link href={`${link.path}`} key={i} className={`flex ${link.path === router.asPath ? 'bg-spotifyGreen' : ''} transition p-3 2xl:w-full sm:justify-center 2xl:justify-start rounded-full hover:bg-spotifyOpacityGreen gap-4 items-center `}>
             <link.icon size={24} />
             <p className='2xl:block sm:hidden text-base font-light'>{link.title}</p>
+          
           </Link>
         ))}
         {user?.isArtist && 
@@ -101,7 +105,7 @@ function LeftBar({isSwipedLeft, isSwipedRight, onSwitchOff}: Props) {
 
     <div className="flex flex-col gap-4 sm:p-4 lg:p-2">
         {linksArray.map((link, i) => (
-          <button onClick={onSwitchOff} key={i} className='flex justify-around transition py-2 px-1 lg:w-full rounded-full hover:bg-spotifyOpacityGreen gap-4 items-center '>
+          <button onClick={onSwitchOff} key={i} className={`flex justify-around transition py-2 px-1 lg:w-full rounded-full hover:bg-spotifyOpacityGreen gap-4 items-center ${link.path === router.asPath ? 'bg-spotifyGreen' : ''}`}>
             <link.icon size={24} />
             <p className='text-base font-light'>{link.title}</p>
           </button>

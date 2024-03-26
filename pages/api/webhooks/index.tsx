@@ -14,7 +14,7 @@ const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 
 const webhookSecret = 'STRIPE_SECRET_KEY';
 
-const webhookHandler = async (req: NextApiRequest, res: NextApiResponse) => {
+const POST = async (req: NextApiRequest, res: NextApiResponse) => {
 
     if (req.method === 'POST') {
         const buf = await buffer(req)
@@ -37,4 +37,4 @@ const webhookHandler = async (req: NextApiRequest, res: NextApiResponse) => {
 
     }
 }
-export default cors(webhookHandler as any);
+export default cors(POST as any);

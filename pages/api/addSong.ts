@@ -6,7 +6,7 @@ import {
 import prisma from '@/util/prismadb';
 
 async function handler(req: NextApiRequest, res: NextApiResponse) { 
-    const { audioFile, songCover, songName, artistId } = req.body;
+    const { audioFile, songCover, songName, artistId, genre } = req.body;
 
 
     await prisma.song.create({
@@ -14,6 +14,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
             title: songName,
             musicPath: audioFile,
             songCover: songCover,
+            genre:genre,
            artistId : artistId
         }
     });
