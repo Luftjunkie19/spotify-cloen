@@ -28,14 +28,14 @@ function NextSong({ artists, title, cover }: Props) {
                   {!hovered ? <IoMusicalNoteOutline size={24} className={`transition text-spotifyLightGray ${hovered ? '-translate-y-full' : 'translate-y-0'}`} /> : <IoPlayCircle  size={24} className={` text-white ${!hovered ? '-translate-y-full' : 'translate-y-0'} transition text-spotifyLightGray`} />}
               </button>
 
-                <Image className="w-8 h-8 rounded-md self-center" src={''} alt={title as string} />
+                <Image className="w-8 h-8 rounded-md self-center" src={''} alt={title ? title as string : ''} />
 
               <div className="w-1/2 flex flex-col gap-1">
-                  <Marquee play={title.trim().length > 15}>        
+                  <Marquee play={title ? title.trim().length > 15 : false}>        
               <p className='text-sm text-nowrap'>{title}</p>
                   </Marquee>
-                  <Marquee play={title.trim().length > 15}>                      
-              <p className='text-sm text-nowrap'>{artists.join(",")}</p>
+                  <Marquee play={title ? title.trim().length > 15 : false}>                      
+              <p className='text-sm text-nowrap'>{artists ? artists.join(",") : ''}</p>
                   </Marquee>
           </div>
           </div>

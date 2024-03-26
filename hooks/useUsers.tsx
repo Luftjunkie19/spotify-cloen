@@ -2,12 +2,12 @@ import useSWR from 'swr';
 
 import fetcher from '@/util/fetcher';
 
-function useSongs() {
-    const { data, mutate, isLoading, } = useSWR('api/songs', fetcher);
+function useUsers() {
+    const { data, mutate, isLoading, } = useSWR('api/users', fetcher);
     
     return { data, mutate, isLoading };
 }
 
 
 
-export default useSongs
+export default useUsers

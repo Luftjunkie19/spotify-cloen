@@ -3,10 +3,12 @@ import { createSlice } from '@reduxjs/toolkit';
 type playMusicInteface = {
     isPlaying: boolean,
     imageUrl: String | null,
+    songPath:String | null,
     title: String | null,
     artists: String[] | null,
     songLength: number | null,
     currentTime: number | null,
+    showRightBar:Boolean
 }
 
 const initialState: playMusicInteface = {
@@ -16,19 +18,36 @@ const initialState: playMusicInteface = {
     artists: null,
     songLength: null,
     currentTime: null,
-    
+    songPath:null,
+    showRightBar: false,
 }
 
 export const PlayMusicContext = createSlice({
     name: "playMusic",
     initialState: initialState,
     reducers: {
-        pauseSong(state) {
-            state.isPlaying = false;
+        togglePlayingSong(state) {
+            state.isPlaying = !state.isPlaying;
+        },
+        closeRightBar(state) {
+            state.showRightBar = false;
+        },
+        toggleRightBar(state) {
+            state.showRightBar = !state.showRightBar;
         },
         restartSong(state) {
             state.currentTime = 0;
             state.isPlaying = true;
+        },
+        startSong(state, action) {
+            const { songCover, songLength, songPath, title, artistList } = action.payload;
+            state.songPath = songPath;
+            state.artists = artistList;
+            state.imageUrl = songCover;
+            state.title = title;
+            state.showRightBar = true;
+            state.isPlaying = false;
+            state.currentTime = 0;
         }
     }
 });

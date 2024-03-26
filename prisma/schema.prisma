@@ -54,6 +54,7 @@ model Song {
   artist         User     @relation(fields: [artistId], references: [id])
   albumId        String?  @db.ObjectId
   belongsToAlbum Album?   @relation(fields: [albumId], references: [id])
+  genre          String
 }
 
 model PlayList {

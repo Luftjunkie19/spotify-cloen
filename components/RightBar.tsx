@@ -1,22 +1,33 @@
 import React from 'react';
 
-import coverImage from '@/assets/79e6eef3-3268-4d46-9435-19f3ab6fcd50.webp';
+import {
+  useDispatch,
+  useSelector,
+} from 'react-redux';
+
+import { playMusicActions } from '@/contexts/PlayMusicContext';
 
 import Cover from './layout/right-bar/Cover';
 import NextSong from './layout/right-bar/NextSong';
 
-type Props = {
-  onClose: () => void,
-  closed: boolean,
-}
+function RightBar() {
+    const songCover = useSelector((state: any) => state.playmusic.imageUrl);
+  const  isPlaying = useSelector((state:any)=>state.playmusic.isPlaying);
+  const songTitle = useSelector((state: any) => state.playmusic.title);
+  const artists = useSelector((state: any) => state.playmusic.artists);
+  const showRight = useSelector((state: any) => state.playmusic.showRightBar);
 
-function RightBar({closed, onClose}: Props) {
+  const dispatch = useDispatch();
+
+  const onClose = () => {
+    dispatch(playMusicActions.closeRightBar());
+  }
+
   return (
-    <div className={`border-l-spotifyMediumGray ${closed ? 'hidden' : 'sm:hidden lg:block'} lg:col-span-4 xl:col-span-3 border-l p-4 w-full h-full`}>
+    <div className={`border-l-spotifyMediumGray ${!showRight ? 'hidden' : 'sm:hidden lg:block'} lg:col-span-4 xl:col-span-3 border-l p-4 w-full h-full`}>
+      <Cover close={onClose} title={songTitle} artists={artists} imageURL={songCover} />  
 
-      <Cover close={onClose} title='Es Tut Mir Leid' artists={["Capital Bra"]} imageURL={coverImage} />  
-
-      <NextSong title={'BMW Alpina'} cover={'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSYscfUBUbqwGd_DHVhG-ZjCOD7MUpxp4uhNe7toUg4ug&s'} artists={['Capital Bra']}/>
+      <NextSong title={songTitle} cover={songCover} artists={artists}/>
     </div>
   )
 }
