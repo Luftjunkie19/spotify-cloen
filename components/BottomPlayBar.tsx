@@ -135,14 +135,14 @@ const toggleLoop=()=>{
           <button onClick={toggleLoop}><RxLoop className={`${looped ? 'text-spotifyGreen' : 'text-white'}`}  size={24}/></button>
       </div>
         <div className="flex gap-1 items-center py-2">
-          <p className="text-xs text-spotifyLightGray">{Math.round(moment/60)}:{Math.round(moment)}</p>  
+          <p className="text-xs text-spotifyLightGray">{Math.round(moment/60)}:{`${ moment < 10 ? `0${Math.round(moment)}` : `${Math.round(moment)}`}`}</p>  
         <input value={moment} min={0} max={duration} onChange={(e:React.ChangeEvent<HTMLInputElement>)=>{
           if(audioData){
             audioData.currentTime= +e.target.value;
             setMoment(+e.target.value);
           }
         }} className="range range-xs lg:w-80 xl:w-96 [--range-shdw:#1db954]" type="range" />
-          <p className="text-xs text-spotifyLightGray">-{Math.round(duration / 60)}:{`${ duration < 10 ? `0${Math.round(duration)}` : `${Math.round(duration)}`}`} </p>
+          <p className="text-xs text-spotifyLightGray">-{Math.round((duration  / 60) - (moment/60))}:{`${ duration - moment < 10 ? `0${Math.round(duration - moment)}` : `${Math.round(duration - moment)}`}`} </p>
       </div>
       </div>
       
