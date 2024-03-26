@@ -12,10 +12,11 @@ import { SlOptions } from 'react-icons/sl';
 type Props = {
     title: string,
     artists:string[],
-    imageURL:StaticImageData
+    imageURL: StaticImageData,
+    close:()=>void,
 }
 
-function Cover({ title, imageURL, artists }: Props) {
+function Cover({ title, imageURL, artists, close }: Props) {
     
     const [like, setLike] = useState(false);
 
@@ -24,7 +25,7 @@ function Cover({ title, imageURL, artists }: Props) {
           <div className="flex justify-between gap-3">
               <p>{artists[0]}</p>
 
-              <button>
+              <button onClick={close}>
                   <IoCloseOutline size={24} />
               </button>
           </div>
@@ -32,8 +33,8 @@ function Cover({ title, imageURL, artists }: Props) {
           
           <div className="flex justify-between gap-6 w-full ">
               <div className="flex flex-col gap-1">     
-                  <Marquee pauseOnHover autoFill={false} direction='right'>            
-          <p className='text-xl tracking-wide font-bold'>{title}</p>
+                  <Marquee speed={20} play={title.trim().length > 10} className='lg:w-1/2 xl:max-w-52' pauseOnHover autoFill={false} direction='right'>            
+          <p className='text-xl px-1 tracking-wide font-bold'>{title}</p>
                   </Marquee>    
               <p className=' text-sm font-medium'>{artists.join(", ")}</p>
               </div>
