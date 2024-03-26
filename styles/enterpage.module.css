@@ -1,0 +1,49 @@
+.enter-page-bg{
+    background: url('../assets/wp8138021.jpg') center;
+    position:relative;
+    top:0;
+    left:0;
+    overflow:hidden;
+}
+
+.enter-page-bg::after{
+    position:absolute;
+    top:0;
+    right:0;
+    content: '';
+    width: 100%; 
+    z-index: 10;
+    height: 100%;
+    background-color:rgba(33,33,33, 0.6);
+}
+
+
+.enter-page-container{
+    position:relative;
+    top:0;
+    left:0;
+    overflow:hidden;
+}
+.enter-page-container::after{
+    position:absolute;
+    bottom:-10rem;
+    right:-8rem;
+    content: '';
+    width: 150%; 
+    height: 50%;
+     z-index: 15;
+    transform: rotate(15deg);
+    background-color: #1db954;
+}
+.enter-page-container::before{
+    position:absolute;
+    top:0;
+    left:0;
+
+    content: '';
+     z-index: 10;
+    width: 200%; 
+    height: 20%;
+    transform: rotate(15deg);
+    background-color: #121212;
+}

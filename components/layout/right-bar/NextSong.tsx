@@ -16,7 +16,7 @@ type Props = {
 function NextSong({ artists, title, cover }: Props) {
     const [hovered, setHovered] = useState(true);
   return (
-      <div className='flex bg-spotifyDarkGray flex-col gap-3 p-3 rounded-lg w-full'>
+      <div className='flex bg-spotifyDarkGray flex-col gap-3 px-4 py-5 rounded-lg w-full'>
           <div className="flex justify-between">
               <p className='font-medium'>Next in queue</p>
               <button className=' text-sm font-bold hover:border-b-2 hover:border-b-white hover:text-white transition text-spotifyLightGray'>Open queue</button>
@@ -30,11 +30,11 @@ function NextSong({ artists, title, cover }: Props) {
 
                 <Image className="w-8 h-8 rounded-md self-center" src={''} alt={title as string} />
 
-              <div className="lg:max-w-11 xl:max-w-24">
-                  <Marquee>        
+              <div className="w-1/2 flex flex-col gap-1">
+                  <Marquee play={title.trim().length > 15}>        
               <p className='text-sm text-nowrap'>{title}</p>
                   </Marquee>
-                  <Marquee>                      
+                  <Marquee play={title.trim().length > 15}>                      
               <p className='text-sm text-nowrap'>{artists.join(",")}</p>
                   </Marquee>
           </div>

@@ -7,7 +7,7 @@ type Props = {
 
 function Modal({body}: Props) {
   return (
-      <div className=''>
+      <div className='z-50'>
           {body}
     </div>
   )

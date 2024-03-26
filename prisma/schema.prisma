@@ -13,67 +13,54 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-// model User {
-//   id             String          @id @default(auto()) @map("_id") @db.ObjectId
-//   name           String
-//   email          String          @unique
-//   isAdmin        Boolean
-//   preferences    Json
-//   writtenPosts   Post[]          @relation("writtenPosts")
-//   favouritePosts Post[]          @relation("favouritePosts")
-//   userPreference UserPreference?
-// }
+model User {
+  id               String     @id @default(auto()) @map("_id") @db.ObjectId
+  username         String?
+  email            String?    @unique
+  password         String?
+  profileImg       String?
+  createdAt        DateTime   @default(now())
+  updatedAt        DateTime   @updatedAt
+  pastFromLastAds  DateTime   @default(now())
+  isSubscribed     Boolean    @default(false)
+  createdPlaylists PlayList[]
+  favouriteSongs   String[]   @db.ObjectId
+  followed         String[]   @db.ObjectId
+  followers        String[]   @db.ObjectId
+  isArtist         Boolean    @default(false)
+  createdSongs     Song[]
+  createdAlbums    Album[]
+  firstName        String?
+  lastName         String?
+}
 
-// model UserPreference {
-//   id           String  @id @default(auto()) @map("_id") @db.ObjectId
-//   emailUpdates Boolean
-//   user         User    @relation(fields: [userId], references: [id])
-//   userId       String  @unique
-// }
+model Album {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  name      String
+  songs     Song[]
+  creatorId String   @db.ObjectId
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  creator   User     @relation(fields: [creatorId], references: [id])
+}
 
-// model Post {
-//   id             String     @id @default(auto()) @map("_id") @db.ObjectId
-//   title          String
-//   content        String
-//   averageRatinh  Float      @default(0)
-//   createdAt      DateTime   @default(now())
-//   updatedAt      DateTime   @updatedAt
-//   author         User       @relation("writtenPosts", fields: [authorId], references: [id])
-//   authorId       String
-//   favouritedBy   User?      @relation("favouritePosts", fields: [favouritedById], references: [id])
-//   favouritedById String?
-//   categories     Category[]
-// }
+model Song {
+  id             String   @id @default(auto()) @map("_id") @db.ObjectId
+  title          String
+  musicPath      String
+  songCover      String
+  releaseDate    DateTime @default(now())
+  artistId       String   @db.ObjectId
+  artist         User     @relation(fields: [artistId], references: [id])
+  albumId        String?  @db.ObjectId
+  belongsToAlbum Album?   @relation(fields: [albumId], references: [id])
+}
 
-// model Category {
-//   id    String @id @default(auto()) @map("_id") @db.ObjectId
-//   name  String
-//   posts Post[]
-// }
-
-// model User {
-//   id           String  @id @default(auto()) @map("_id") @db.ObjectId
-//   name         String
-//   email        String  @unique
-//   belovedSongs Song[]  @relation("favouritedBy")
-//   songId       String? @db.ObjectId
-// }
-
-// model Artist {
-//   id          String @id @default(auto()) @map("_id") @db.ObjectId
-//   name        String @unique
-//   nationality String
-//   songs       Song[]
-// }
-
-// model Song {
-//   id             String   @id @default(auto()) @map("_id") @db.ObjectId
-//   rating         Int
-//   artist         Artist   @relation(fields: [artistId], references: [id])
-//   artistId       String   @db.ObjectId
-//   title          String
-//   updatedAt      DateTime
-//   uploadedAt     DateTime
-//   favouritedBy   User[]   @relation("belovedSongs", fields: [id], references: [favouritedById])
-//   favouritedById String
-// }
+model PlayList {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  songs     String[] @db.ObjectId
+  imageUrl  String?
+  name      String?
+  creatorId String   @db.ObjectId
+  creator   User     @relation(fields: [creatorId], references: [id])
+}

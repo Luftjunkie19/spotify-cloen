@@ -8,6 +8,7 @@ import { FaBell } from 'react-icons/fa6';
 import { MdKeyboardArrowLeft } from 'react-icons/md';
 
 import Profile from '@/assets/frame_20_delay-0.1s.jpg';
+import useCurrentUser from '@/hooks/useCurrentUser';
 
 type Props = {
   onPressProfile:()=>void
@@ -15,6 +16,8 @@ type Props = {
 
 function UserBar({onPressProfile }: Props) {
   const [scrolledToPoint, setScrolledToPoint] = useState(false);
+
+  const { data:user } = useCurrentUser();
 
 useEffect(()=>{
 
@@ -33,7 +36,10 @@ useEffect(()=>{
       </button>
       
       <div className="flex gap-6">
-        <button className="bg-white px-6 rounded-full h-auto">
+        <button onClick={async () => {
+          console.log(user);
+
+        }}  className="bg-white px-6 rounded-full h-auto">
       <p className='text-sm text-black font-bold'>
         Explore Premium
       </p>
@@ -41,9 +47,12 @@ useEffect(()=>{
         <button>
           <FaBell className=" text-spotifyLightGray"/>
         </button>
+        {user && 
+        
         <button onClick={onPressProfile}>
-          <Image src={Profile} alt='Profile' className='rounded-full w-8 h-8 object-cover'/> 
+          <Image width={32} height={32} src={user.profileImg ? user.profileImg : Profile} alt='Profile' className='rounded-full w-8 h-8 object-cover'/> 
         </button>
+        }
       </div>
     </div>
   )

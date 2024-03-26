@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 import React from 'react';
 
 import Image from 'next/image';
@@ -9,14 +10,13 @@ type Props = {
   closedRight: boolean;
 }
 
-function MusicGenres({closedRight}: Props) {
+function RecentlyAdded({closedRight}: Props) {
   const colourArray = ['bg-red-300', ' bg-yellow-500', 'bg-green-200', 'bg-blue-400', 'bg-purple-600', 'bg-pink-700', ' bg-red-700'];
-
   return (
     <>
-      <p className='px-4 font-medium text-2xl'>The most listened  music genres:</p>
+      <p className='px-4 font-medium text-2xl'>Recently added songs:</p>
       <div className={`grid snap-always snap-mandatory gap-4 sm:auto-cols-[45%] md:auto-cols-[30%] sm:overflow-x-auto snap-inline sm:grid-flow-col xl:snap-none ${closedRight ? 'xl:grid-cols-5 2xl:grid-cols-7' : 'xl:grid-cols-4 2xl:grid-cols-6 3xl:grid-cols-7 4xl:grid-cols-8'} px-4`}>
-      {genres.slice(0, 4).map((genre, i) => (<div className={`flex overflow-hidden cursor-pointer group snap-always snap-center flex-col relative top-0 left-0 gap-2`} key={i}>
+      {genres.slice(0, 7).map((genre:any, i:any) => (<div className={`flex overflow-hidden cursor-pointer group snap-always snap-center flex-col relative top-0 left-0 gap-2`} key={i}>
         <div className="relative overflow-hidden top-0 left-0 w-full h-36">
           <Image src={genre.image} alt='' className={`w-full h-36 rounded-lg object-cover ${colourArray[i]}`} />
           <div className="bg-spotifyOpacityDarkGray duration-500 transition-all group-hover:top-0 group-hover:opacity-100 opacity-0 absolute top-full left-0 w-full h-full"></div>
@@ -30,6 +30,5 @@ function MusicGenres({closedRight}: Props) {
   )
 }
 
-export default MusicGenres
-
+export default RecentlyAdded
 
