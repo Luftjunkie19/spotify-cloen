@@ -23,7 +23,7 @@ const router = useRouter();
   
 
   return (
-    <div className='flex flex-col gap-6'>
+    <div className='flex min-h-screen flex-col gap-4'>
       <InitalTabs />
 
  <MusicGenres closedRight={showRight} />
