@@ -6,6 +6,7 @@ import { AiOutlinePlaySquare } from 'react-icons/ai';
 import {
   FaCheckCircle,
   FaPauseCircle,
+  FaVolumeMute,
 } from 'react-icons/fa';
 import { FaShuffle } from 'react-icons/fa6';
 import { HiSpeakerWave } from 'react-icons/hi2';
@@ -40,6 +41,7 @@ function BottomPlayBar({ rightClosed, toggleRight }: Props) {
   const {data:userData}=useCurrentUser();
   const audioData = audioReference.current;
   const [looped, setLooped]=useState(false);
+  const [muted, setMuted]=useState(false);
   const [volumeLevel, setVolumeLevel]=useState(100);
 
 useEffect(()=>{
@@ -71,6 +73,10 @@ const handleEnded=()=>{
 
 const handleVolume=(e:React.ChangeEvent<HTMLInputElement>)=>{
   if(audioData){
+if(audioData.muted){
+  audioData.volume=0;
+  setVolumeLevel(0);
+}
     audioData.volume= +e.target.value;
     setVolumeLevel(+e.target.value);
   }
@@ -101,7 +107,10 @@ const toggleSong=()=>{
 
 const toggleLoop=()=>{
     setLooped(!looped);
+}
 
+const toggleMute=()=>{
+  setMuted(!muted);
 }
 
   return (
@@ -127,7 +136,7 @@ const toggleLoop=()=>{
         <div className="flex gap-8 self-center">
           <button><FaShuffle size={24}/></button>
           <button><MdSkipPrevious size={24} /></button>
-          <audio loop={looped} ref={audioReference} src={songPath}></audio>
+          <audio muted={muted} loop={looped} ref={audioReference} src={songPath}></audio>
           <button onClick={toggleSong}>
             {isPlaying ? <FaPauseCircle size={36}/> : <IoPlayCircle size={36} />}
             </button>
@@ -152,10 +161,10 @@ const toggleLoop=()=>{
 <AiOutlinePlaySquare className={`${!rightClosed ? 'text-white' : 'text-spotifyGreen'}`} size={20}/>
         </button>
       <div className=" sm:hidden lg:flex items-center gap-2">
-        <button>
-<HiSpeakerWave size={20} />
+        <button onClick={toggleMute}>
+{muted ? <FaVolumeMute size={20}/> : <HiSpeakerWave size={20} />}
         </button>
-<input className="range range-xs max-w-24 [--range-shdw:#fff]"  type="range" min={0} onChange={handleVolume} step={0.01} value={volumeLevel} max={1}  name="" id="" />
+<input className="range range-xs max-w-24 [--range-shdw:#fff]"  type="range" min={0} onChange={handleVolume} step={0.01} value={muted ? 0 : volumeLevel} max={1}  name="" id="" />
 
       </div>
       </div>
