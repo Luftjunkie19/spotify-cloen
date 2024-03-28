@@ -1,15 +1,16 @@
 import React from 'react';
 
+import useCurrentUser from '@/hooks/useCurrentUser';
 import classes from '@/styles/subscription.module.css';
 
 type Props = {}
 
 function PremiumPage() {
-
+  const { data: userData } = useCurrentUser();
   const handleSubscribeClick = async (selectedPlanPrice: string) => { 
     const fetchedData = await fetch('/api/stripe/subscription', {
       method: "POST",
-      body: JSON.stringify({ selectedPlanPrice }),
+      body: JSON.stringify({ selectedPlanPrice, userId: userData.id}),
       headers: {
         'Content-Type': 'application/json'
       }
@@ -71,7 +72,7 @@ function PremiumPage() {
 
     <div className="card-actions justify-center mt-3">
               <button onClick={async () => {
-                await handleSubscribeClick('price_1OyIOOAqg1VPDrTFL7a8eP7v');
+                await handleSubscribeClick('price_1OyIIaAqg1VPDrTFRv7OZyl2');
       }} className="btn w-full font-inherit font-bold bg-spotifyDarkGray text-white">Buy Now</button>
     </div>
   </div>
@@ -95,7 +96,7 @@ function PremiumPage() {
 
     <div className="card-actions justify-center mt-3">
       <button onClick={async () => {
-                await handleSubscribeClick('price_1OyIPcAqg1VPDrTFVXUPlpUH');
+                await handleSubscribeClick('price_1OyIJXAqg1VPDrTFZbagtwND');
       }} className="btn w-full font-inherit font-bold bg-spotifyDarkGray text-white">Buy Now</button>
     </div>
   </div>
@@ -120,7 +121,7 @@ function PremiumPage() {
 
     <div className="card-actions justify-center mt-3">
       <button onClick={async () => {
-                await handleSubscribeClick('price_1OyIaqAqg1VPDrTFXJ9KaItt');
+                await handleSubscribeClick('price_1OyIL3Aqg1VPDrTFK124iLJx');
       }} className="btn w-full font-inherit font-bold bg-spotifyDarkGray text-white">Buy Now</button>
     </div>
   </div>

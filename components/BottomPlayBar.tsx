@@ -1,7 +1,12 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, {
+  useEffect,
+  useRef,
+  useState,
+} from 'react';
 
 import Image from 'next/image';
 import Marquee from 'react-fast-marquee';
+import { toast } from 'react-hot-toast';
 import { AiOutlinePlaySquare } from 'react-icons/ai';
 import {
   FaCheckCircle,
@@ -21,6 +26,8 @@ import {
 
 import { playMusicActions } from '@/contexts/PlayMusicContext';
 import useCurrentUser from '@/hooks/useCurrentUser';
+import useSongs from '@/hooks/useSongs';
+import useUsers from '@/hooks/useUsers';
 
 type Props = {
   rightClosed: boolean,
@@ -35,15 +42,16 @@ function BottomPlayBar({ rightClosed, toggleRight }: Props) {
   const artists = useSelector((state: any) => state.playmusic.artists);
   const dispatch = useDispatch();
   const audioReference = useRef<HTMLAudioElement>(null);
-  const [playedAudio, setPlayedAudio]=useState<string | null>(null);
   const [moment, setMoment]=useState(0);
   const [duration, setDuration]=useState(0);
   const {data:userData}=useCurrentUser();
   const audioData = audioReference.current;
   const [looped, setLooped]=useState(false);
   const [muted, setMuted]=useState(false);
-  const [volumeLevel, setVolumeLevel]=useState(100);
-
+  const [volumeLevel, setVolumeLevel] = useState(100);
+  const { data: users } = useUsers();
+  const { data } = useSongs();
+const randomSong = data && data.filter((item: any) => item.title !== songTitle)[Math.floor(Math.random() * data.filter((item: any) => item.title !== songTitle).length)];
 useEffect(()=>{
 if(audioData){
   audioData.addEventListener('timeupdate', updateCurrentTime);
@@ -111,7 +119,36 @@ const toggleLoop=()=>{
 
 const toggleMute=()=>{
   setMuted(!muted);
-}
+  }
+  
+
+  const goNext = async () => {
+    if (userData.isSubscribed) {
+      if (audioData) {      
+        audioData.pause();
+        audioData.currentTime = 0;
+      }
+      console.log(randomSong);
+      setMoment(0);
+      const artist = users.find((userData: any) => userData.id === artists[0].id)?.username;
+    dispatch(playMusicActions.startSong({songCover:randomSong.songCover, songLength:0, songPath:randomSong.musicPath, title:randomSong.title, artistList:[artist]}))
+
+
+    } else {
+      if (userData.availableSkips > 0) {
+        await fetch(`/api/next-song/${userData.id}`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({ currentSkips: userData.availableSkips })
+        });
+      } else {
+        toast.error('In order to skip the song, purchase an subscription or wait an hour');
+      }
+    }
+  }
+
 
   return (
     <div className={`fixed ${songCover ? 'flex' : 'hidden'} bottom-0 left-0 w-full pt-2 px-4 bg-spotifyBlack h-20 z-50 justify-between`}>
@@ -140,7 +177,7 @@ const toggleMute=()=>{
           <button onClick={toggleSong}>
             {isPlaying ? <FaPauseCircle size={36}/> : <IoPlayCircle size={36} />}
             </button>
-          <button><IoIosSkipForward  size={24}/></button>
+          <button onClick={goNext}><IoIosSkipForward  size={24}/></button>
           <button onClick={toggleLoop}><RxLoop className={`${looped ? 'text-spotifyGreen' : 'text-white'}`}  size={24}/></button>
       </div>
         <div className="flex gap-1 items-center py-2">
