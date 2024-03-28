@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 
 import Image from 'next/image';
 import Marquee from 'react-fast-marquee';
+import songImage from '@/assets/360_F_454661277_NtQYM8oJq2wOzY1X9Y81FlFa06DVipVD.jpg';
 import {
   IoMusicalNoteOutline,
   IoPlayCircle,
@@ -28,7 +29,7 @@ function NextSong({ artists, title, cover }: Props) {
                   {!hovered ? <IoMusicalNoteOutline size={24} className={`transition text-spotifyLightGray ${hovered ? '-translate-y-full' : 'translate-y-0'}`} /> : <IoPlayCircle  size={24} className={` text-white ${!hovered ? '-translate-y-full' : 'translate-y-0'} transition text-spotifyLightGray`} />}
               </button>
 
-                <Image className="w-8 h-8 rounded-md self-center" src={''} alt={title ? title as string : ''} />
+                <Image className="w-8 h-8 rounded-md self-center" width={32} height={32} src={cover ? cover as string : songImage} alt={title ? title as string : ''} />
 
               <div className="w-1/2 flex flex-col gap-1">
                   <Marquee play={title ? title.trim().length > 15 : false}>        

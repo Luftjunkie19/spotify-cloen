@@ -8,7 +8,8 @@ type playMusicInteface = {
     artists: String[] | null,
     songLength: number | null,
     currentTime: number | null,
-    showRightBar:Boolean
+    showRightBar:Boolean,
+    songId: string | null,
 }
 
 const initialState: playMusicInteface = {
@@ -20,6 +21,7 @@ const initialState: playMusicInteface = {
     currentTime: null,
     songPath:null,
     showRightBar: false,
+    songId: null,
 }
 
 export const PlayMusicContext = createSlice({
@@ -40,10 +42,11 @@ export const PlayMusicContext = createSlice({
             state.isPlaying = true;
         },
         startSong(state, action) {
-            const { songCover, songLength, songPath, title, artistList } = action.payload;
+            const { songCover, songLength, songPath, title, artistList, songId } = action.payload;
             state.songPath = songPath;
             state.artists = artistList;
             state.imageUrl = songCover;
+            state.songId = songId;
             state.title = title;
             state.showRightBar = true;
             state.isPlaying = false;

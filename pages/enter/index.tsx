@@ -16,10 +16,11 @@ import {
 
 import Modal from '@/components/modals/Modal';
 import classes from '@/styles/enterpage.module.css';
+import LoginPage from '@/components/login/LoginModal';
 
 type Props = {}
 
-function EnterPage({}: Props) {
+function EnterPage({}) {
 const router = useRouter();
   const [selectedType, setSelectedType] = useState<String | null>(null);
   const [user, setUser] = useState({
@@ -27,6 +28,7 @@ const router = useRouter();
     email: '',
     password:''
   });
+  const [hasAccount, setHasAccount]=useState(false);
   const [artist, setArtist] = useState({
     firstName: '',
     lastName:'',
@@ -102,7 +104,7 @@ return prev;
         
     <button onClick={handleUserLogin} className="btn rounded-full bg-spotifyGreen border border-spotifyDarkGray hover:border-spotifyGreen text-lg font-medium hover:bg-spotifyBlack hover:text-spotifyGreen text-spotifyBlack min-w-[20rem] self-center">Sign Up</button>
 
-    <button className=' hover:underline transition-all'>I have already an account</button>
+    <button onClick={()=>setHasAccount(true)} className=' hover:underline transition-all'>I have already an account</button>
   </div>;
 
   const modalArtist = <div className=' p-8 sm:w-full xl:min-w-[30rem] xl:max-w-2xl w-full rounded-xl bg-spotifyDarkGray flex flex-col justify-around gap-4'>
@@ -148,7 +150,7 @@ return prev;
         
     <button onClick={handleUserLogin} className="btn rounded-full bg-spotifyGreen border border-spotifyDarkGray hover:border-spotifyGreen text-lg font-medium hover:bg-spotifyBlack hover:text-spotifyGreen text-spotifyBlack min-w-[20rem] self-center">Sign Up</button>
 
-    <button className=' hover:underline transition-all'>I have already an account</button>
+    <button onClick={()=>setHasAccount(true)} className=' hover:underline transition-all'>I have already an account</button>
   </div>;
 
   const conditionalModal = selectedType === 'artist' ? modalArtist : modalUser;
@@ -173,10 +175,12 @@ return prev;
 
 </div>
         }
-{selectedType &&
+{selectedType && !hasAccount &&
           <Modal body={conditionalModal} />
    
 }
+
+{selectedType && hasAccount && <LoginPage />}
       </div>
     </div>
 )

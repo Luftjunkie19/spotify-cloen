@@ -63,7 +63,7 @@ body {
     rgb(var(--background-start-rgb));
 
     font-family: 'Gotham', sans-serif;
-    overflow-x: hidden;
+    overflow: hidden;
 }
 
 @layer utilities {

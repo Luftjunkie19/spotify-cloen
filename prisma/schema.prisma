@@ -30,6 +30,7 @@ model User {
   isArtist         Boolean    @default(false)
   createdSongs     Song[]
   createdAlbums    Album[]
+  availableSkips Int @default(6) 
   firstName        String?
   lastName         String?
 }

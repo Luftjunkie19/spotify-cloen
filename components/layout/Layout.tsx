@@ -52,14 +52,15 @@ function Layout({ children }: Props) {
     })
   },[router])
 
-  const UnsessionedLayout = <>
-    {children}</>;
+  const UnsessionedLayout = <div className='w-full min-h-screen overflow-auto'>
+    {children}
+    </div>;
 
   const SessionedLayout = (<><div onTouchMove={onTouchMove} className={`lg:grid h-full w-full ${!showRight ? `grid-cols-10` : `${classes["gridcolumns-desktop"]}`}`}>
 
     <LeftBar onSwitchOff={onSwitchOff} isSwipedLeft={isSwipedLeft} />
 
-    <div onClick={onSwitchOff} className={`${!showRight ? 'col-span-9' : 'xl:col-span-8 lg:col-span-7'}`}>
+    <div onClick={onSwitchOff} className={`${!showRight ? 'col-span-9' : 'xl:col-span-8 lg:col-span-7'} overflow-auto min-h-screen`}>
       <UserBar onPressProfile={onPressProfileImage} />
       {children}
     </div>

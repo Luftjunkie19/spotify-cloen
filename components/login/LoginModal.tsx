@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react'
 import Modal from '@/components/modals/Modal';
 import classes from '@/styles/enterpage.module.css';
 import toast from 'react-hot-toast';
-type Props = {}
+
 
 function LoginPage({}) {
   const router= useRouter();
@@ -14,7 +14,7 @@ function LoginPage({}) {
      });
 
 const handleLoginUser= async ()=>{
-    const fetchedData= await fetch('/api/login', {
+    const fetchedData= await fetch('api/login', {
         method:"POST",
         headers:{
             'Content-Type':'application/json',
@@ -24,6 +24,7 @@ const handleLoginUser= async ()=>{
     const response = await fetchedData.json();
 
     const {user:userData, message}=response;
+    console.log(userData);
 
     if(message){ 
         toast.error(message);

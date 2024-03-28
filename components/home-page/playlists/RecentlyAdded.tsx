@@ -23,7 +23,7 @@ function RecentlyAdded({ closedRight }: Props) {
 
   const handleSong = (song: any) => {
     const artist = users.find((userData: any) => userData.id === song.artistId)?.username;
-    dispatch(playMusicActions.startSong({songCover:song.songCover, songLength:0, songPath:song.musicPath, title:song.title, artistList:[artist]}))
+    dispatch(playMusicActions.startSong({songCover:song.songCover, songLength:0, songPath:song.musicPath, title:song.title, artistList:[artist], songId:song.id}))
   }
   
   

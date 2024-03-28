@@ -16,7 +16,7 @@ function RightBar() {
   const songTitle = useSelector((state: any) => state.playmusic.title);
   const artists = useSelector((state: any) => state.playmusic.artists);
   const showRight = useSelector((state: any) => state.playmusic.showRightBar);
-
+const songId= useSelector((state:any)=>state.playmusic.songId);
   const dispatch = useDispatch();
 
   const onClose = () => {
@@ -25,7 +25,7 @@ function RightBar() {
 
   return (
     <div className={`border-l-spotifyMediumGray ${!showRight ? 'hidden' : 'sm:hidden lg:block'} lg:col-span-4 xl:col-span-3 border-l p-4 w-full h-full`}>
-      <Cover close={onClose} title={songTitle} artists={artists} imageURL={songCover} />  
+      <Cover songId={songId} close={onClose} title={songTitle} artists={artists} imageURL={songCover} />  
 
       <NextSong title={songTitle} cover={songCover} artists={artists}/>
     </div>
