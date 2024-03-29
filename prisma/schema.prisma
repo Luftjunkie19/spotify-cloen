@@ -13,6 +13,7 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+
 model User {
   id               String     @id @default(auto()) @map("_id") @db.ObjectId
   username         String?
@@ -24,6 +25,7 @@ model User {
   pastFromLastAds  DateTime   @default(now())
   isSubscribed     Boolean    @default(false)
   createdPlaylists PlayList[]
+  listenedSongs listenedSong[]
   favouriteSongs   String[]   @db.ObjectId
   followed         String[]   @db.ObjectId
   followers        String[]   @db.ObjectId
@@ -35,6 +37,16 @@ model User {
   lastName         String?
 }
 
+model listenedSong {
+  id               String     @id @default(auto()) @map("_id") @db.ObjectId
+  listenerId  String @db.ObjectId
+  listener User @relation(fields: [listenerId], references: [id])
+  timeOfListening DateTime @default(now())
+  songId String @db.ObjectId
+  songObject Song @relation(fields: [songId], references: [id])
+}
+
+
 model Album {
   id        String   @id @default(auto()) @map("_id") @db.ObjectId
   name      String
@@ -45,7 +57,7 @@ model Album {
   creator   User     @relation(fields: [creatorId], references: [id])
 }
 
-model Song {
+model Song { 
   id             String   @id @default(auto()) @map("_id") @db.ObjectId
   title          String
   musicPath      String
@@ -55,9 +67,9 @@ model Song {
   artist         User     @relation(fields: [artistId], references: [id])
   albumId        String?  @db.ObjectId
   belongsToAlbum Album?   @relation(fields: [albumId], references: [id])
-  genre          String
+  listenedTimes listenedSong[]
+  genre          String 
 }
-
 model PlayList {
   id        String   @id @default(auto()) @map("_id") @db.ObjectId
   songs     String[] @db.ObjectId

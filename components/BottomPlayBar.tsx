@@ -63,16 +63,27 @@ if(audioData){
 }
 
 }, [audioData]);
-const randomSong = songs && songs.filter((item:any)=>item.title !== songTitle)[Math.floor(Math.random() * songs.filter((item:any)=>item.title !== songTitle).length)];
-
-const randomArtist = users && randomSong && users.find((userItem:any)=>userItem.id === randomSong.artistId);
 const handleEnded=()=>{
+  const randomSong = songs && songs.filter((item:any)=>item.id !== songId)[Math.floor(Math.random() * songs.filter((item:any)=>item.id !== songId).length)];
+  
+  const randomArtist = users && randomSong && users.find((userItem:any)=>userItem.id === randomSong.artistId);
  if(audioData){
   if(audioData.loop){
     audioData.currentTime=0;
     audioData.play();
   }else{
-    dispatch(playMusicActions.startSong({songPath: randomSong.musicPath, imageUrl: randomSong.songCover, artists:[randomArtist], title:randomSong.title, songId:randomSong.id}));
+   
+     dispatch(playMusicActions.startSong({songPath: randomSong.musicPath, imageUrl: randomSong.songCover, artists: [randomArtist], title:randomSong.title, songId:randomSong.id}));
+
+ 
+     fetch('/api/next-song/songToList',{
+       method:'POST',
+       body:JSON.stringify({songId, userId:userData.id}),
+       headers:{
+         'Content-Type':'application/json'
+       }
+     }).then(result=>result.json()).then(data=>data);
+   
   }
  }
 };
@@ -123,6 +134,10 @@ const toggleMute=()=>{
 
 const goForward=()=>{
 
+  const randomSong = songs && songs.filter((item:any)=>item.id !== songId)[Math.floor(Math.random() * songs.filter((item:any)=>item.id !== songId).length)];
+  
+  const randomArtist = users && randomSong && users.find((userItem:any)=>userItem.id === randomSong.artistId);
+
 if(audioData){
   audioData.currentTime=0;
   setMoment(0);
@@ -132,14 +147,30 @@ console.log(randomSong, randomArtist);
 
 if(userData.isSubscribed){
   dispatch(playMusicActions.startSong({songPath: randomSong.musicPath, songId:randomSong.id, imageUrl: randomSong.songCover, artists:[randomArtist], title:randomSong.title}));
-}else{
-  if(userData.availableSkips > 0){
+  fetch('/api/next-song/songToList',{
+    method:'POST',
+    body:JSON.stringify({songId, userId:userData.id}),
+    headers:{
+      'Content-Type':'application/json'
+    }
+  }).then(result=>result.json()).then(data=>console.log(data));
+}
+  if(!userData.isSubscribed && userData.availableSkips > 0){
     fetch(`api/next-song/${userData.id}`).then((result)=>result.json()).then((resultData)=>console.log(resultData));
     dispatch(playMusicActions.startSong({songPath: randomSong.musicPath, imageUrl: randomSong.songCover, artists:[randomArtist], title:randomSong.title, songId:randomSong.id}));
-  }else{
+    fetch('/api/next-song/songToList',{
+      method:'POST',
+      body:JSON.stringify({songId, userId:userData && userData.id}),
+      headers:{
+        'Content-Type':'application/json'
+      }
+    }).then(result=>result.json()).then(data=>console.log(data));
+  }
+  
+  if(!userData.isSubscribed && userData.availableSkips === 0){
     toast("In order to go forward you have to wait or purchase subscription");
   }
-}
+
 
 
 }
@@ -160,9 +191,22 @@ const handleLike= async ()=>{
      
  }
 
-const goBack=()=>{
+const goBack= async ()=>{
+  console.log(userData);
+  const fetchData= await fetch('/api/previousSong',{
+    method:"POST",
+    body:JSON.stringify({songId}),
+    headers:{
+      'Content-Type':'application/json'
+    }
+  });
+
+  const data=await fetchData.json();
+  console.log(data);
   if(userData.isSubscribed){
     toast.success('You are able to skip back');
+    const artist= users.find((item:any)=>item.id === data.artistId);
+   dispatch(playMusicActions.startSong({songPath: data.musicPath, imageUrl: data.songCover, artists:[artist], title:data.title, songId:data.id}));
   }else{
     toast.error('You have to be subsribed to Clonify');
   }

@@ -3,7 +3,7 @@ import React, {
   useState,
 } from 'react';
 
-import { getSession } from 'next-auth/react';
+import { getSession, signOut } from 'next-auth/react';
 import { useRouter } from 'next/router';
 import {
   useDispatch,
@@ -38,8 +38,8 @@ function Layout({ children }: Props) {
     console.log(e.targetTouches[0]);
   }
   const onSwitchOff = () => setIsSwipedLeft(false);
-  const onPressProfileImage = () => {
-    setIsSwipedLeft(true)
+  const onPressProfileImage = async () => {
+   await signOut();
   };
 
   useEffect(() => {
