@@ -30,7 +30,7 @@ function RecentlyAdded({ closedRight }: Props) {
   return (
     <>
       <p className='px-4 font-medium text-2xl'>Recently added songs:</p>
-      <div className={`grid snap-always snap-mandatory gap-4 sm:auto-cols-[45%] md:auto-cols-[30%] sm:overflow-x-auto snap-inline sm:grid-flow-col xl:snap-none ${closedRight ? 'xl:grid-cols-5 2xl:grid-cols-7' : 'xl:grid-cols-4 2xl:grid-cols-6 3xl:grid-cols-7 4xl:grid-cols-8'} px-4`}>
+      <div className={`grid snap-always snap-mandatory gap-4 sm:auto-cols-[45%] md:auto-cols-[30%] sm:overflow-x-auto snap-inline sm:grid-flow-col xl:snap-none ${closedRight ? 'xl:grid-cols-4 2xl:grid-cols-7' : 'xl:grid-cols-6 2xl:grid-cols-6 3xl:grid-cols-7 4xl:grid-cols-8'} px-4`}>
         {isLoading && new Array().fill(0, 0, 6).map((item, i) => <SongSkeleton key={i} />)}
 
       {!isLoading && data && data.slice(0, 7).map((song:any, i:any) => (<div className={`flex hover:bg-spotifyOpacityDarkGray py-2 px-1 transition-all duration-500 rounded-lg overflow-hidden cursor-pointer group snap-always snap-center flex-col relative top-0 left-0 gap-2`} key={i}>

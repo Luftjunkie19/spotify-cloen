@@ -5,19 +5,19 @@ import useCurrentUser from '@/hooks/useCurrentUser';
 type Props = {}
 
 function PremiumPage(props) {
-
+const {data}=useCurrentUser();
   const handleSubscribeClick = async (selectedPlanPrice: string) => { 
     const fetchedData = await fetch('/api/stripe/subscription', {
       method: "POST",
-      body: JSON.stringify({ selectedPlanPrice }),
+      body: JSON.stringify({ selectedPlanPrice, subscriberId: data.id }),
       headers: {
-        'Content-Type': 'application/json'
+        "Content-Type": "application/json"
       }
     });
 
-    const sessionURL = await fetchedData.json();
+    const session = await fetchedData.json();
 
-    window.location.href = sessionURL;
+    window.location.href = session.url;
   };
 
 

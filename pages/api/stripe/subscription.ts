@@ -20,16 +20,16 @@ const session = await stripe.checkout.sessions.create({
     quantity: 1,
   }],
   metadata:{
-    userId:subscriberId
+    userId:subscriberId,
   },
   mode: 'subscription',
 })
 
-       return res.status(201).json(session.url);
+       return res.status(201).json(session);
     }
     catch(err){
         console.log(err);
-        res.status(403).json(err);
+       return res.status(403).json(err);
     }
 }
 

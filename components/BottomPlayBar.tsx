@@ -73,8 +73,9 @@ const handleEnded=()=>{
     audioData.currentTime=0;
     audioData.play();
   }else{
+    console.log(randomSong);
    
-     dispatch(playMusicActions.startSong({songPath: randomSong.musicPath, imageUrl: randomSong.songCover, artists: [randomArtist], title:randomSong.title, songId:randomSong.id}));
+     dispatch(playMusicActions.startSong({songPath: randomSong?.musicPath, imageUrl: randomSong?.songCover, artists: randomArtist && [randomArtist], title:randomSong?.title, songId:randomSong?.id}));
 
  
      fetch('/api/next-song/songToList',{

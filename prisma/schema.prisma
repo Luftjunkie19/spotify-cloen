@@ -50,6 +50,7 @@ model listenedSong {
 model Album {
   id        String   @id @default(auto()) @map("_id") @db.ObjectId
   name      String
+  imageUrl String?
   songs     Song[]
   creatorId String   @db.ObjectId
   createdAt DateTime @default(now())
@@ -77,4 +78,6 @@ model PlayList {
   name      String?
   creatorId String   @db.ObjectId
   creator   User     @relation(fields: [creatorId], references: [id])
+  createdAt DateTime @default(now())
+  likers    String[] @db.ObjectId
 }

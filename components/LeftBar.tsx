@@ -1,4 +1,5 @@
 import React, { Key } from 'react';
+import { RiPlayListAddLine } from "react-icons/ri";
 
 import Link from 'next/link';
 import { useRouter } from 'next/router';
@@ -88,10 +89,12 @@ function LeftBar({isSwipedLeft, isSwipedRight, onSwitchOff}: Props) {
           </Link>
         ))}
         {user?.isArtist && 
+           <>
             <button onClick={handleOpenModal}  className='flex transition p-3 2xl:w-full sm:justify-center 2xl:justify-start rounded-full hover:bg-spotifyOpacityGreen gap-4 items-center '>
             <PiMusicNotesPlus size={24} />
             <p className='2xl:block sm:hidden text-base font-light'>Song</p>
           </button>
+           </>
         }
       </div>
       </div>
@@ -112,6 +115,7 @@ function LeftBar({isSwipedLeft, isSwipedRight, onSwitchOff}: Props) {
         ))}
         
         {user?.isArtist && 
+        <>
         <button onClick={() => {
           handleOpenModal();
           onSwitchOff();
@@ -119,6 +123,11 @@ function LeftBar({isSwipedLeft, isSwipedRight, onSwitchOff}: Props) {
         <PiMusicNotesPlus size={24} />
             <p className='text-base font-light'>Song</p>
           </button>
+        <button className='flex justify-around transition py-2 px-1 lg:w-full rounded-full hover:bg-spotifyOpacityGreen gap-4 items-center'>
+       <RiPlayListAddLine/> 
+       <p className='text-base font-light'>Playlist</p>
+        </button>
+        </>
         }
       </div>
   </div>
