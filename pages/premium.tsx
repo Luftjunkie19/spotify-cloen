@@ -1,6 +1,4 @@
 import React from 'react';
-
-import useCurrentUser from '@/hooks/useCurrentUser';
 import classes from '@/styles/subscription.module.css';
 import useCurrentUser from '@/hooks/useCurrentUser';
 

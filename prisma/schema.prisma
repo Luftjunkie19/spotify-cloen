@@ -32,8 +32,7 @@ model User {
   followers        String[]   @db.ObjectId
   isArtist         Boolean    @default(false)
   createdSongs     Song[]
-  createdAlbums    Album[]
-  availableSkips Int @default(6) 
+  createdAlbums    Album[] 
   firstName        String?
   lastName         String?
 }

@@ -1,5 +1,4 @@
 import React, { useEffect, useRef, useState } from 'react';
-import {toast} from 'react-hot-toast';
 import Image from 'next/image';
 import Marquee from 'react-fast-marquee';
 import { toast } from 'react-hot-toast';
@@ -24,8 +23,6 @@ import { playMusicActions } from '@/contexts/PlayMusicContext';
 import useCurrentUser from '@/hooks/useCurrentUser';
 import useSongs from '@/hooks/useSongs';
 import useUsers from '@/hooks/useUsers';
-import useSongs from '@/hooks/useSongs';
-import useUsers from '@/hooks/useUsers';
 
 type Props = {
   rightClosed: boolean,
@@ -45,7 +42,6 @@ function BottomPlayBar({ rightClosed, toggleRight }: Props) {
   const [duration, setDuration]=useState(0);
   const {data:userData}=useCurrentUser();
   const {data:songs}=useSongs();
-  const {data:users}=useUsers();
   const audioData = audioReference.current;
   const [looped, setLooped]=useState(false);
   const [muted, setMuted]=useState(false);
