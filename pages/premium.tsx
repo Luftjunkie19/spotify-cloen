@@ -1,17 +1,17 @@
 import React from 'react';
 
+import useCurrentUser from '@/hooks/useCurrentUser';
 import classes from '@/styles/subscription.module.css';
 import useCurrentUser from '@/hooks/useCurrentUser';
 
 type Props = {}
 
 function PremiumPage(props) {
-  const {data}=useCurrentUser();
 
   const handleSubscribeClick = async (selectedPlanPrice: string) => { 
     const fetchedData = await fetch('/api/stripe/subscription', {
       method: "POST",
-      body: JSON.stringify({ selectedPlanPrice, subscriberId:data.id }),
+      body: JSON.stringify({ selectedPlanPrice }),
       headers: {
         'Content-Type': 'application/json'
       }

@@ -24,6 +24,7 @@ model User {
   updatedAt        DateTime   @updatedAt
   pastFromLastAds  DateTime   @default(now())
   isSubscribed     Boolean    @default(false)
+  availableSkips   Int        @default(6)
   createdPlaylists PlayList[]
   listenedSongs listenedSong[]
   favouriteSongs   String[]   @db.ObjectId

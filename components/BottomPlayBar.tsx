@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import {toast} from 'react-hot-toast';
 import Image from 'next/image';
 import Marquee from 'react-fast-marquee';
+import { toast } from 'react-hot-toast';
 import { AiOutlinePlaySquare } from 'react-icons/ai';
 import {
   FaCheckCircle,
@@ -21,6 +22,8 @@ import {
 import songImage from '@/assets/360_F_454661277_NtQYM8oJq2wOzY1X9Y81FlFa06DVipVD.jpg'
 import { playMusicActions } from '@/contexts/PlayMusicContext';
 import useCurrentUser from '@/hooks/useCurrentUser';
+import useSongs from '@/hooks/useSongs';
+import useUsers from '@/hooks/useUsers';
 import useSongs from '@/hooks/useSongs';
 import useUsers from '@/hooks/useUsers';
 
@@ -46,8 +49,10 @@ function BottomPlayBar({ rightClosed, toggleRight }: Props) {
   const audioData = audioReference.current;
   const [looped, setLooped]=useState(false);
   const [muted, setMuted]=useState(false);
-  const [volumeLevel, setVolumeLevel]=useState(100);
-
+  const [volumeLevel, setVolumeLevel] = useState(100);
+  const { data: users } = useUsers();
+  const { data } = useSongs();
+const randomSong = data && data.filter((item: any) => item.title !== songTitle)[Math.floor(Math.random() * data.filter((item: any) => item.title !== songTitle).length)];
 useEffect(()=>{
 if(audioData){
   audioData.addEventListener('timeupdate', updateCurrentTime);
