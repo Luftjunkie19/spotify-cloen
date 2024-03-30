@@ -2,8 +2,9 @@ import useSWR from 'swr';
 
 import fetcher from '@/util/fetcher';
 
-function useUsers() {
-    const { data, mutate, isLoading, } = useSWR('api/users', fetcher);
+
+function useUsers(userId?:string) {
+    const { data, mutate, isLoading, } = useSWR(userId ? `/api/users/${userId}`:'api/users', fetcher);
     
     return { data, mutate, isLoading };
 }

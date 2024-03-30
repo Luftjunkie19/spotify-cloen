@@ -49,7 +49,7 @@ export const PlayMusicContext = createSlice({
             state.songId = songId;
             state.title = title;
             state.showRightBar = true;
-            state.isPlaying = false;
+            state.isPlaying = true;
             state.currentTime = 0;
         }
     }

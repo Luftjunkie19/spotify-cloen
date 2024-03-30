@@ -67,7 +67,7 @@ useEffect(()=>{
         <button onClick={async () => {
           console.log(user);
 
-        }}  className="bg-white px-6 sm:hidden md:block rounded-full py-3">
+        }}  className="bg-white px-4 sm:hidden md:block rounded-full py-1">
       <p className='text-sm text-black font-bold'>
         Explore Premium
       </p>

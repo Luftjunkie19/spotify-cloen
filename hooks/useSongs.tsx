@@ -2,8 +2,8 @@ import useSWR from 'swr';
 
 import fetcher from '@/util/fetcher';
 
-function useSongs() {
-    const { data, mutate, isLoading, } = useSWR('api/songs', fetcher);
+function useSongs(songId?:string) {
+    const { data, mutate, isLoading, } = useSWR(songId ? `/api/song/${songId}` :'api/songs', fetcher);
     
     return { data, mutate, isLoading };
 }

@@ -74,7 +74,7 @@ const handleEnded=()=>{
     audioData.play();
   }else{
     console.log(randomSong);
-   
+    dispatch(playMusicActions.togglePlayingSong());
      dispatch(playMusicActions.startSong({songPath: randomSong?.musicPath, imageUrl: randomSong?.songCover, artists: randomArtist && [randomArtist], title:randomSong?.title, songId:randomSong?.id}));
 
  
@@ -109,7 +109,8 @@ const updateCurrentTime=()=>{
 
 const loadMetaData=()=>{
   if(audioData){
-    setDuration(audioData?.duration);
+    setDuration(audioData.duration);
+audioData.play()
   }
 };
 
@@ -230,7 +231,7 @@ const goBack= async ()=>{
 
       <div className="sm:flex lg:hidden gap-6">
         <button onClick={handleLike} className='sm:block lg:hidden'><FaCheckCircle className={userData && userData.favouriteSongs.includes(songId) ? 'text-spotifyGreen': 'text-white'} size={24}/></button>
-           <button onClick={toggleSong} className='sm:block lg:hidden'> {!isPlaying ? <FaPauseCircle size={36}/> : <IoPlayCircle size={36} />}</button>
+           <button onClick={toggleSong} className='sm:block lg:hidden'> {isPlaying ? <FaPauseCircle size={36}/> : <IoPlayCircle size={36} />}</button>
       </div>
       
       <div className="sm:hidden lg:flex flex-col gap-2 self-center">

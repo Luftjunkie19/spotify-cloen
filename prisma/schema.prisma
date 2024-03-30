@@ -62,7 +62,7 @@ model Album {
   id        String   @id @default(auto()) @map("_id") @db.ObjectId
   name      String
   imageUrl  String?
-  songs     Song[]
+  songs     String[] @db.ObjectId
   creatorId String   @db.ObjectId
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -78,7 +78,6 @@ model Song {
   artistId       String         @db.ObjectId
   artist         User           @relation(fields: [artistId], references: [id])
   albumId        String?        @db.ObjectId
-  belongsToAlbum Album?         @relation(fields: [albumId], references: [id])
   listenedTimes  listenedSong[]
   genre          String
 }

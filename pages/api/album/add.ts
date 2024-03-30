@@ -25,10 +25,11 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
         }
     });
 
-    songs.map(async (songItem: any) => {
-        await prisma.song.update({ where: { id: songItem.id }, data: { albumId: album.id, belongsToAlbum: album as any } });
-        return songItem;
-    });
+    const editedSongs= songs.map((songItem: any) => songItem.id);
+
+    await prisma.album.update({where:{id:album.id}, data:{
+        songs:editedSongs
+    }})
 
     return res.status(201).json("Success");
 }

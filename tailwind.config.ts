@@ -21,6 +21,7 @@ const config: Config = {
       colors: {
         spotifyGreen: '#1db954',
         spotifyOpacityGreen: 'rgba(29,185,84, 0.75)',
+        spotifySpecificOpacityGreen: 'rgba(29,185,84, 0.15)',
         spotifyDarkGray: '#212121',
         spotifyOpacityDarkGray:'rgba(33,33,33, 0.6)',
         spotifyBlack: '#121212',
