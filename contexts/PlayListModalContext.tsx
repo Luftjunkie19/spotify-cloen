@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 export const playlistModalContext = createSlice({
-    name: "songmodal",
+    name: "playlistModal",
     initialState: {
         isShown:false,
     },

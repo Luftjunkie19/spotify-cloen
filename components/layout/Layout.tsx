@@ -3,7 +3,10 @@ import React, {
   useState,
 } from 'react';
 
-import { getSession, signOut } from 'next-auth/react';
+import {
+  getSession,
+  signOut,
+} from 'next-auth/react';
 import { useRouter } from 'next/router';
 import {
   useDispatch,
@@ -17,9 +20,9 @@ import classes from '@/styles/gridcolumns.module.css';
 
 import BottomPlayBar from '../BottomPlayBar';
 import UserBar from '../home-page/UserBar';
-import AddSongModal from '../modals/AddSongModal';
-import AddPlaylistModal from '../modals/AddPlaylistModal';
 import AddAlbumModal from '../modals/AddAlbumModal';
+import AddPlaylistModal from '../modals/AddPlaylistModal';
+import AddSongModal from '../modals/AddSongModal';
 
 type Props = {
     children: React.ReactNode
@@ -72,10 +75,10 @@ function Layout({ children }: Props) {
 
   return (
     <div className='h-screen w-screen' >
-      <AddSongModal />
-      <AddPlaylistModal/>
-      <AddAlbumModal/>
     {sessionLoaded ? SessionedLayout  : UnsessionedLayout}
+      <AddPlaylistModal/>
+      <AddSongModal />
+      <AddAlbumModal/>
     </div>
   )
 }

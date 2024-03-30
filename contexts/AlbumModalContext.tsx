@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 export const albumModalContext = createSlice({
-    name: "songmodal",
+    name: "albumModal",
     initialState: {
         isShown:false,
     },

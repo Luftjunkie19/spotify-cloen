@@ -1,5 +1,10 @@
-import { NextApiRequest, NextApiResponse } from "next";
+import {
+  NextApiRequest,
+  NextApiResponse,
+} from 'next';
+
 import prisma from '@/util/prismadb';
+
 async function handler(req:NextApiRequest, res:NextApiResponse){
     const {playlistName, creatorId, imageUrl, songs}=req.body;
 
@@ -11,12 +16,19 @@ async function handler(req:NextApiRequest, res:NextApiResponse){
         return  res.status(400).json({message : "Missing data in the request body"});
     }
 
-    await prisma.playList.create({data:{
-        name:playlistName,
-        songs,
-        creatorId,
-        imageUrl,
-    }});
+const playlistSongs= songs.map((item:any) =>item.id);
+
+     await prisma.playList.create({
+        data: {
+            name: playlistName,
+            creatorId,
+            imageUrl,
+            songs:playlistSongs,
+        }
+    });
+
+
+    return res.status(201).json("Success");
 }
 
 export default handler;

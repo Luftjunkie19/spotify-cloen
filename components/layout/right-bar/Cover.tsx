@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
-import songDefault from '@/assets/539866.jpg'
-import Image, { StaticImageData } from 'next/image';
+import React from 'react';
+
+import Image from 'next/image';
 import Marquee from 'react-fast-marquee';
 import {
   FaCheckCircle,
@@ -8,8 +8,10 @@ import {
 } from 'react-icons/fa';
 import { IoCloseOutline } from 'react-icons/io5';
 import { SlOptions } from 'react-icons/sl';
-import useSongs from '@/hooks/useSongs';
+
+import songDefault from '@/assets/539866.jpg';
 import useCurrentUser from '@/hooks/useCurrentUser';
+import useSongs from '@/hooks/useSongs';
 
 type Props = {
     title: string,
@@ -59,7 +61,7 @@ function Cover({ title, imageURL, artists, close, songId }: Props) {
               </div>
               
               <div className="flex gap-4">
-                  <button onClick={handleLike}>{ userData && userData.favouriteSongs.includes(songId) ? <FaRegCheckCircle size={24} className='text-spotifyLightGray transition'/> : <FaCheckCircle size={24} className=' transtition text-spotifyGreen'/>}</button>
+                  <button onClick={handleLike}>{ userData && userData.favouriteSongs.includes(songId) ? <FaCheckCircle size={24} className=' transtition text-spotifyGreen'/> : <FaRegCheckCircle size={24} className='text-spotifyLightGray transition'/> }</button>
                   <button><SlOptions /></button>
               </div>
           </div>

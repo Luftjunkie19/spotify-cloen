@@ -1,10 +1,9 @@
 import React from 'react';
-import classes from '@/styles/subscription.module.css';
+
 import useCurrentUser from '@/hooks/useCurrentUser';
+import classes from '@/styles/subscription.module.css';
 
-type Props = {}
-
-function PremiumPage(props) {
+function PremiumPage() {
 const {data}=useCurrentUser();
   const handleSubscribeClick = async (selectedPlanPrice: string) => { 
     const fetchedData = await fetch('/api/stripe/subscription', {
@@ -22,7 +21,7 @@ const {data}=useCurrentUser();
 
 
   return (
-      <div className='w-full h-screen bg-spotifyBlack overflow-scroll '>
+      <div className='w-full h-screen bg-spotifyBlack '>
           <div className={`w-full flex flex-col gap-2 h-72 items-center justify-center ${classes["hero-bg"]} p-2`}>
               <p className="text-3xl font-semibold text-center">Get Your Individual Premium account !</p>
               <p className="text-center">With Premium account you will be able to listen to your favourite music and enjoy it limitlessly and without any ads !</p>
