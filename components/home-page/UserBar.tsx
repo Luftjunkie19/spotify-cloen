@@ -24,7 +24,9 @@ function UserBar({onPressProfile }: Props) {
   const [scrolledToPoint, setScrolledToPoint] = useState(false);
 const router=useRouter();
   const { data:user } = useCurrentUser();
-
+const moveBack=()=>{
+  router.back()
+}
 const dispatch=useDispatch();
 
 
@@ -49,7 +51,7 @@ useEffect(()=>{
   return (
     <div className={`flex transition sticky top-0 left-0 z-50 justify-between p-3 bg-spotifyDarkGray`}>
      <div className="flex gap-6">
-      <button>
+      <button onClick={moveBack}>
         <MdKeyboardArrowLeft className=' text-spotifyLightGray' size={24} />
       </button>
       {user && user.isArtist &&

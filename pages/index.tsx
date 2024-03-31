@@ -5,8 +5,11 @@ import { useRouter } from 'next/router';
 import { useSelector } from 'react-redux';
 
 import InitalTabs from '@/components/home-page/InitalTabs';
-import MusicGenres from '@/components/home-page/playlists/MusicGenres';
-import RecentlyAdded from '@/components/home-page/playlists/RecentlyAdded';
+import MusicGenres from '@/components/home-page/tabs/MusicGenres';
+import RecentlyAdded from '@/components/home-page/tabs/RecentlyAdded';
+import RecentPlaylists from '@/components/home-page/tabs/RecentPlaylists';
+import RecentAlbums from '@/components/home-page/tabs/RecentAlbums';
+
 
 export default function Home(props) {
 const router = useRouter();
@@ -41,6 +44,8 @@ const router = useRouter();
 
  <MusicGenres closedRight={showRight} />
       <RecentlyAdded closedRight={showRight} />
+      <RecentPlaylists/>
+      <RecentAlbums/>
     </div>
   );
 }

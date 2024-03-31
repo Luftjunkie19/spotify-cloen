@@ -13,9 +13,6 @@ export default function App({ Component,  pageProps: { session, ...pageProps }, 
       <Provider store={store}>
       <Layout>
         <Toaster position='top-right'/>
-        <div>
-          <p className='text-white text-xl'>{JSON.stringify(session)}</p>
-        </div>
       <Component {...pageProps} />
   </Layout>
       </Provider>

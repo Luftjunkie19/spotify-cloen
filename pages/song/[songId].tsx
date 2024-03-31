@@ -12,6 +12,7 @@ import { BsThreeDots } from "react-icons/bs";
 import useListenedSong from '@/hooks/useListenedSong';
 import { useDispatch, useSelector } from 'react-redux';
 import { playMusicActions } from '@/contexts/PlayMusicContext';
+import SongItem from '@/components/home-page/items/SongItem';
 type Props = {}
 
 function SongPage(props: InferGetStaticPropsType<typeof getStaticProps>) {
@@ -28,7 +29,6 @@ const handlePlay=()=>{
   dispatch(playMusicActions.startSong({songPath:data.musicPath, artists:[userData], imageUrl:data.songCover, songId:data.id, title:data.title}))
 }
 
-const songData= songRef.current;
 
   return (
     <div className='w-full h-full bg-spotifySpecificOpacityGreen'>
@@ -71,22 +71,10 @@ const songData= songRef.current;
     <p>Plays</p>
     <FaClock/>
   </div>
-  <div className="flex p-3 mx-4 justify-between items-center">
-    <div className="flex gap-6 items-center">
-      <p className=' text-lg text-spotifyLightGray font-medium'>1</p>
-      <div className="">
-      <p>{data.title}</p>
-      <p className='text-sm text-spotifyLightGray'>{userData && userData.username}</p>
-      </div>
-    </div>
-    
-      <p className=' text-spotifyLightGray'>{listenedTimes && listenedTimes}</p>
-  
-    <div className="">
-     <audio ref={songRef} src={data.musicPath}></audio>
-     {songData && <p className='text-spotifyLightGray'>{`${Math.floor(songData.duration/60) < 10 ? `0${Math.floor(songData.duration / 60)}` : Math.floor(songData.duration / 60)}:${Math.floor(songData.duration) < 10 ? `0${Math.floor(songData.duration)}` : Math.floor(songData.duration)}`}</p>}
-    </div>
-  </div>
+  {userData && listenedTimes && data &&
+  <SongItem songId={data.id} artist={data.artistId} musicSource={data.musicPath} title={data.title}/>
+  }
+ 
 </div>
 
       </>}
