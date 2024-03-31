@@ -12,19 +12,26 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
 
     const { artistId } = req.query;
 
+    const artistObject= await prisma.user.findUnique({where:{id:artistId as string}});
 
-    const foundArtist = await prisma.user.findUnique({
-        where: {
-            id: artistId as string,
-        }
+
+    const songs= await prisma.song.findMany({where:{artistId:artistId as string}})
+
+    const listenedSongs= songs.map(async(item:any)=>{
+        let listenedToSongs=[];
+
+        const foundListened= await prisma.listenedSong.count({where:{songId:item.id as string}});
+        
+        listenedToSongs.push(foundListened);
+
+        return listenedToSongs.filter((item)=>item !== undefined || item !== null);
     });
 
-
-    if (!foundArtist) {
+    if (!songs) {
             throw new Error('WYPIERDALAJ !');
     }
 
-    return res.status(200).json(foundArtist);
+    return res.status(200).json({songs, listenedSongs, artist:artistObject});
 
 }
 

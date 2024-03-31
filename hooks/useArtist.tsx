@@ -3,7 +3,7 @@ import useSWR from 'swr';
 import fetcher from '@/util/fetcher';
 
 interface Props{
-    artistId: String,
+    artistId: string,
 }
 
 function useArtist({artistId}:Props) {
