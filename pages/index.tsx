@@ -6,10 +6,9 @@ import { useSelector } from 'react-redux';
 
 import InitalTabs from '@/components/home-page/InitalTabs';
 import MusicGenres from '@/components/home-page/tabs/MusicGenres';
+import RecentAlbums from '@/components/home-page/tabs/RecentAlbums';
 import RecentlyAdded from '@/components/home-page/tabs/RecentlyAdded';
 import RecentPlaylists from '@/components/home-page/tabs/RecentPlaylists';
-import RecentAlbums from '@/components/home-page/tabs/RecentAlbums';
-
 
 export default function Home(props) {
 const router = useRouter();
@@ -30,7 +29,7 @@ const router = useRouter();
       
       <div className="flex gap-2 mt-4 ml-4">
         <button className="rounded-full font-medium text-sm bg-white text-spotifyBlack px-4 py-2">
-          Everything
+          All
         </button>
         <button className="rounded-full text-sm bg-spotifyDarkGray text-white px-6 py-1">
           Music

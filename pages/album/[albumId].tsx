@@ -1,17 +1,25 @@
-import React from 'react'
-import { InferGetStaticPropsType } from "next";
-import SongItem from '@/components/home-page/items/SongItem';
-import Link from 'next/link';
-import Image from 'next/image';
+import React from 'react';
+
 import { format } from 'date-fns';
-import { FaClock, FaList, FaPause, FaPlay, FaPlusCircle } from 'react-icons/fa';
-import { FaShuffle } from 'react-icons/fa6';
-import { BsThreeDots } from 'react-icons/bs';
-import { useSelector } from 'react-redux';
+import { InferGetStaticPropsType } from 'next';
+import Image from 'next/image';
+import Link from 'next/link';
 import { useRouter } from 'next/router';
+import { BsThreeDots } from 'react-icons/bs';
+import {
+  FaClock,
+  FaList,
+  FaPause,
+  FaPlay,
+  FaPlusCircle,
+} from 'react-icons/fa';
+import { FaShuffle } from 'react-icons/fa6';
+import { useSelector } from 'react-redux';
+
+import SongItem from '@/components/home-page/items/SongItem';
 import useAlbums from '@/hooks/useAlbums';
-import useUsers from '@/hooks/useUsers';
 import useSongs from '@/hooks/useSongs';
+import useUsers from '@/hooks/useUsers';
 
 type Props = {}
 
@@ -46,7 +54,7 @@ function AlbumPage({}: InferGetStaticPropsType<typeof getStaticProps>) {
   <div className="">
     {data && userObject && <div className='flex gap-6  items-center'>
 <Image width={48} height={48} alt='' className='rounded-full w-12 h-12 object-cover border-2 border-spotifyGreen' src={userObject.profileImg}/>
-<Link className='hover:font-medium hover:underline' href={`/users/${userObject.creatorId}`}>{userObject.username}</Link>  
+<Link className='hover:font-medium hover:underline' href={`/users/${userObject.id}`}>{userObject.username}</Link>  
 <p>{format(data.createdAt as string, "do MMMM yyyy")}</p>
     </div>
     }
@@ -76,9 +84,9 @@ function AlbumPage({}: InferGetStaticPropsType<typeof getStaticProps>) {
     <p>Plays</p>
     <FaClock/>
   </div>
-  {data && foundSongs && <>
+  {data && foundSongs && <div className='sm:hidden lg:block'>
 {foundSongs && foundSongs.map((item:any, i:any)=>(<SongItem morethan1Number={i + 1} songId={item?.id as string} key={i} artist={item.artistId as string} musicSource={item.musicPath as string} title={item.title} />))}
-</>}
+</div>}
  
 </div>
 

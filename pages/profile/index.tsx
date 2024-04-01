@@ -4,11 +4,13 @@ import React, {
 } from 'react';
 
 import Image from 'next/image';
+import Link from 'next/link';
 import { FaPencilAlt } from 'react-icons/fa';
 
 import image from '@/assets/wp8138021.jpg';
 import EditModal from '@/components/modals/EditModal';
 import useCurrentUser from '@/hooks/useCurrentUser';
+import useUsers from '@/hooks/useUsers';
 
 export interface userData{
   username: string,
@@ -17,6 +19,7 @@ export interface userData{
 
 function UsersProfilePage() {
   const { data: user } = useCurrentUser();
+  const { data: usersData } = useUsers();
   
   const [username, setUsername] = useState<string>('');
   const [photoUrl, setPhotoUrl] = useState<string | null>(null);
@@ -102,6 +105,15 @@ function UsersProfilePage() {
           <div className="flex flex-col gap-2 mt-6 px-2">
                   <p className="text-2xl font-medium">Recently Followed: </p>
                   {user.followed.length === 0 && <p>Nobody has been followed by you yet.</p>}
+          {user.followed.map((item: any) => (<Link key={item} href={`/users/${item}`}>
+            {usersData.find((userData: any) => userData.id === item) && 
+              <div className="flex flex-col gap-2 w-fit p-4">
+                <Image src={usersData.find((userData: any) => userData.id === item).profileImg} alt="" className="w-48 h-48 rounded-full" width={96} height={96}/>
+                <p>{usersData.find((userData: any) => userData.id === item).username}</p>
+                <p className="text-sm">Artist</p>
+            </div>
+            }
+          </Link>))}
         </div>
               </>     
           }
