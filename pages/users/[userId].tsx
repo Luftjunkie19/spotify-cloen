@@ -28,7 +28,7 @@ const {data:artistData}=useArtist({artistId:userId as string});
 <div className="flex flex-col justify-end px-6 py-2 gap-2 h-full w-full bg-spotifyOpacityDarkGray absolute bottom-0 left-0">
     <p className='text-sm flex gap-4 items-center'><RiVerifiedBadgeFill size={30} className=' text-blue-400'/> Clonify Artist</p>
     <p className='text-7xl font-medium'>{data.username}</p>
-    <p className='text-sm'>{artistData.listenedSongs.length} Monthly Listeners</p>
+    <p className='text-sm'>{artistData && artistData.listenedSongs.length} Monthly Listeners</p>
 </div>
     </div>
 

@@ -25,7 +25,7 @@ function SongItem({musicSource, artist, songId, title, morethan1Number, imageUrl
       <p className=' text-lg text-spotifyLightGray font-medium'>{morethan1Number ? morethan1Number : 1}</p>
       <div className="">
       <p>{title}</p>
-      <p className='text-sm text-spotifyLightGray'>{artistData && artistData.username}</p>
+{!imageUrl && <p className='text-sm text-spotifyLightGray'>{artistData && artistData.artist.username}</p>}
       </div>
     </div>
     
