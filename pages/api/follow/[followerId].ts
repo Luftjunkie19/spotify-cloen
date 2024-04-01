@@ -1,5 +1,10 @@
-import { NextApiRequest, NextApiResponse } from "next";
+import {
+  NextApiRequest,
+  NextApiResponse,
+} from 'next';
+
 import prisma from '@/util/prismadb';
+
 async function handler(req:NextApiRequest, res:NextApiResponse){
 
     const {followerId}=req.query;

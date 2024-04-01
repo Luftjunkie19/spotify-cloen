@@ -1,9 +1,10 @@
-import useAlbums from '@/hooks/useAlbums';
-import usePlaylists from '@/hooks/usePlaylists'
+import React from 'react';
+
 import Image from 'next/image';
 import Link from 'next/link';
-import React from 'react'
 import { useSelector } from 'react-redux';
+
+import useAlbums from '@/hooks/useAlbums';
 
 type Props = {}
 
