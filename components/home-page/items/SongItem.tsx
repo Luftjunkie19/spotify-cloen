@@ -12,9 +12,10 @@ type Props = {
   songId:string,
   morethan1Number?:number,
   imageUrl?: string,
+  releaseDate?: string,
 }
 
-function SongItem({musicSource, artist, songId, title, morethan1Number, imageUrl}:Props) {
+function SongItem({musicSource, artist, songId, title, morethan1Number, imageUrl, releaseDate}:Props) {
  const songRef=useRef<HTMLAudioElement>(null);
  const songData= songRef.current;
  const {data:listenedTimes}=useListenedSong(songId);
@@ -29,8 +30,8 @@ function SongItem({musicSource, artist, songId, title, morethan1Number, imageUrl
 {!imageUrl &&  <p className='text-sm text-spotifyLightGray'>{artistData && artistData.artist.username}</p>}
       </div>
     </div>
-    
-      <p className=' text-spotifyLightGray'>{listenedTimes}</p>
+    {releaseDate ? <p className='text-spotifyLightGray font-medium'>{new Date(releaseDate).toDateString()}</p> :    <p className=' text-spotifyLightGray'>{listenedTimes}</p>}
+   
   
     <div className="">
      <audio ref={songRef} src={musicSource}></audio>
