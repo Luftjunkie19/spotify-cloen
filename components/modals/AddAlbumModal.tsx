@@ -13,6 +13,7 @@ import useCurrentUser from '@/hooks/useCurrentUser';
 import useSongs from '@/hooks/useSongs';
 
 import Modal from './Modal';
+import useStorage from '@/hooks/useStorage';
 
 type Props = {}
 
@@ -21,6 +22,7 @@ function AddAlbumModal({}: Props) {
   const {data:user}=useCurrentUser();
 const isOpen= useSelector((state:any)=>state.albumModal.isShown);
 const dispatch = useDispatch();
+const {uploadImage}=useStorage();
 const handleClose=()=>{
   dispatch(albumModalActions.closeModal());
 }
@@ -32,7 +34,7 @@ const [selectedSongs, setSelectedSongs] = useState<SelectValue | null>(null);
         setSelectedSongs(value);
   };
   
-     const selectImage = (e:any) => {
+     const selectImage = async (e:any) => {
     const selectedImage = e.target.files[0];
     
     const reader= new FileReader();
@@ -43,6 +45,9 @@ const [selectedSongs, setSelectedSongs] = useState<SelectValue | null>(null);
     }
     
     reader.readAsDataURL(selectedImage);
+    const uploadResult = await uploadImage({path:`albumCover/${user.id}/${albumName}`, imageUrl:image as string});
+    console.log(uploadResult);
+        setImage(uploadResult);
   }
 
 

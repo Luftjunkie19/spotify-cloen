@@ -10,7 +10,8 @@ import RecentAlbums from '@/components/home-page/tabs/RecentAlbums';
 import RecentlyAdded from '@/components/home-page/tabs/RecentlyAdded';
 import RecentPlaylists from '@/components/home-page/tabs/RecentPlaylists';
 
-export default function Home(props) {
+
+export default function Home() {
 const router = useRouter();
   const showRight = useSelector((state: any) => state.playmusic.showRightBar);
   useEffect(() => {

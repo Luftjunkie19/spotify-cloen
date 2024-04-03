@@ -35,7 +35,7 @@ function SongItem({musicSource, artist, songId, title, morethan1Number, imageUrl
   
     <div className="">
      <audio ref={songRef} src={musicSource}></audio>
-     {songData && <p className='text-spotifyLightGray'>{`${Math.floor(songData.duration/60) < 10 ? `0${Math.floor(songData.duration / 60)}` : Math.floor(songData.duration / 60)}:${Math.floor(songData.duration) < 10 ? `0${Math.floor(songData.duration)}` : Math.floor(songData.duration)}`}</p>}
+     {songData && <p className='text-spotifyLightGray'>{`${Math.floor(songData.duration/60) < 10 ? `0${Math.floor(songData.duration / 60)}` : Math.floor(songData.duration / 60)}:${Math.floor(songData.duration % 60) < 10 ? `0${Math.floor(songData.duration % 60)}` : Math.floor(songData.duration % 60)}`}</p>}
     </div>
   </div>
   )

@@ -10,6 +10,7 @@ import {
 import { genres } from '@/assets/MusicGenres';
 import { songModalActions } from '@/contexts/SongModalContext';
 import useCurrentUser from '@/hooks/useCurrentUser';
+import useStorage from '@/hooks/useStorage';
 
 function AddSongModal() {
   const { data: user } = useCurrentUser();
@@ -19,10 +20,10 @@ function AddSongModal() {
   const dispatch = useDispatch();
   const [songGenre, setSongGenre] = useState<string | null>(null);
   const isVisible = useSelector((state: any) => state.songmodal.isShown);
-  
-  const selectImage = (e:any) => {
+
+  const {uploadImage}=useStorage();
+  const selectImage = async (e:any) => {
     const selectedImage = e.target.files[0];
-    
     const reader= new FileReader();
 
     
@@ -31,11 +32,13 @@ function AddSongModal() {
     }
     
     reader.readAsDataURL(selectedImage);
+    const uploadResult = await uploadImage({path:`songCover/${user.id}/${songName}`, imageUrl:image as string});
+    console.log(uploadResult);
+        setAudioFile(uploadResult);
   }
 
-  const selectAudio = (e:any) => {
+  const selectAudio = async (e:any) => {
     const selectedAudio = e.target.files[0];
-
       const reader= new FileReader();
 
     
@@ -44,6 +47,12 @@ function AddSongModal() {
     }
     
     reader.readAsDataURL(selectedAudio);
+    const uploadResult = await uploadImage({path:`songs/${user.id}/${songName}`, imageUrl:selectedAudio as string});
+console.log(uploadResult);
+    setAudioFile(uploadResult);
+    
+
+
   };
 
 
@@ -53,6 +62,10 @@ function AddSongModal() {
 
   const onClickSubmit = async () => {
     console.log(user);
+
+   
+    
+   
     await fetch('/api/addSong', {
       method: 'POST',
       body: JSON.stringify({ image, songName, audioFile, artistId: user.id, songCover: image, genre: songGenre}),
@@ -60,6 +73,7 @@ function AddSongModal() {
         'Content-Type':'application/json',
       }
     });
+
     closeModal();
     
   }

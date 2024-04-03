@@ -13,20 +13,32 @@ import useListenedSong from '@/hooks/useListenedSong';
 import { useDispatch, useSelector } from 'react-redux';
 import { playMusicActions } from '@/contexts/PlayMusicContext';
 import SongItem from '@/components/home-page/items/SongItem';
+import useCurrentUser from '@/hooks/useCurrentUser';
 type Props = {}
-
+import MusicImage from '@/assets/360_F_454661277_NtQYM8oJq2wOzY1X9Y81FlFa06DVipVD.jpg';
 function SongPage(props: InferGetStaticPropsType<typeof getStaticProps>) {
 const router=useRouter();
 const {songId}=router.query;
 const {data}=useSongs(songId as string);
+const {data:currentUserData}=useCurrentUser();
 const songRef= useRef<HTMLAudioElement>(null);
 const {data:userData}=useUsers(data?.artistId!);
 const {data:listenedTimes}=useListenedSong(data?.id!);
 const dispatch= useDispatch();
 const isPlaying=useSelector((state:any)=>state.playmusic.isPlaying);
+const conditionalAdShow= currentUserData && !currentUserData.isSubscribed && (new Date().getTime() -  new Date(currentUserData.pastFromLastAds).getTime()) / 60000 >= 30;
+
 
 const handlePlay=()=>{
-  dispatch(playMusicActions.startSong({songPath:data.musicPath, artists:[userData], imageUrl:data.songCover, songId:data.id, title:data.title}))
+  if(conditionalAdShow && currentUserData){
+    
+    dispatch(playMusicActions.startSong({songPath:'@/public/advertisement/spotifyAd.mp3', imageUrl:null, artists:['Clonify'], title:'Advertistement', songId:'AddVertisement'}));
+  }else{
+if(data && userData){
+  const artist = userData.find((userData: any) => userData.id === data.artistId)?.username;
+  dispatch(playMusicActions.startSong({songCover:data.songCover, songLength:0, songPath:data.musicPath, title:data.title, artistList:[artist], songId:data.id}));
+}
+  }
 }
 
 

@@ -13,6 +13,7 @@ import useCurrentUser from '@/hooks/useCurrentUser';
 import useSongs from '@/hooks/useSongs';
 
 import Modal from './Modal';
+import useStorage from '@/hooks/useStorage';
 
 type Props = {}
 
@@ -27,7 +28,7 @@ function AddPlaylistModal({}: Props) {
 
 const {data:songs}=useSongs();
 const {data:user}=useCurrentUser();
-
+const {uploadImage}=useStorage();
 const [selectedSongs, setSelectedSongs] = useState<SelectValue | null>(null);
 
   const handleChange = (value: SelectValue) => {
@@ -36,7 +37,7 @@ const [selectedSongs, setSelectedSongs] = useState<SelectValue | null>(null);
     };
 
   
-    const selectImage = (e:any) => {
+    const selectImage = async (e:any) => {
     const selectedImage = e.target.files[0];
     
     const reader= new FileReader();
@@ -47,6 +48,9 @@ const [selectedSongs, setSelectedSongs] = useState<SelectValue | null>(null);
     }
     
     reader.readAsDataURL(selectedImage);
+    const uploadResult = await uploadImage({path:`playlistCover/${user.id}/${playlistName}`, imageUrl:image as string});
+    console.log(uploadResult);
+    setImage(uploadResult);
   }
 
 

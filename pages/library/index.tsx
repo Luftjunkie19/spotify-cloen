@@ -17,7 +17,7 @@ function LibraryPage({ }) {
   const { data } = useCurrentUser();
   const {data:songs}=useSongs();
   return (
-    <div className='w-full h-full bg-spotifyBlack'>
+    <div className='w-full min-h-screen bg-spotifyBlack'>
       {data && <>
       <div className="flex px-6 py-4 gap-6 items-center">
           <Image  className='rounded-lg object-cover w-48 h-48' width={56} height={60} src={'https://i.pinimg.com/474x/e5/4f/19/e54f19d0ea4c93db35885d386d9b9677.jpg'} alt='width'/>
@@ -36,7 +36,7 @@ function LibraryPage({ }) {
 </div>
       </div>
 
-<div className="flex flex-col bg-spotifySpecificOpacityGreen h-3/4">
+<div className="flex flex-col bg-spotifySpecificOpacityGreen h-screen">
           <div className="flex justify-between px-2 items-center">
             <div className="flex gap-6 p-2 items-center">
               <button className="p-5 rounded-full bg-spotifyGreen">
@@ -70,7 +70,7 @@ function LibraryPage({ }) {
   <button className='bg-white text-spotifyBlack font-medium px-6 py-3 rounded-full'>Find Songs</button>
   </div>}
   {data.favouriteSongs.map((item:any)=>(<>
-  {songs.find((song:any)=>song.id === item) && <SongItem releaseDate={songs.find((song: any) => song.id === item).releaseDate} artist={songs.find((song: any) => song.id === item).artistId} musicSource={songs.find((song: any) => song.id === item).musicPath} key={item} imageUrl={songs.find((song: any) => song.id === item).songCover} title={songs.find((song: any) => song.id === item).title} songId={songs.find((song:any)=>song.id === item).id}/>}
+  {songs && songs.find((song:any)=>song.id === item) && <SongItem releaseDate={songs.find((song: any) => song.id === item).releaseDate} artist={songs.find((song: any) => song.id === item).artistId} musicSource={songs.find((song: any) => song.id === item).musicPath} key={item} imageUrl={songs.find((song: any) => song.id === item).songCover} title={songs.find((song: any) => song.id === item).title} songId={songs.find((song:any)=>song.id === item).id}/>}
   </>))}
 </div>
 
