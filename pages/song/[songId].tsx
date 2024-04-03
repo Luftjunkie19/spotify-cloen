@@ -23,6 +23,7 @@ const {data}=useSongs(songId as string);
 const {data:currentUserData}=useCurrentUser();
 const songRef= useRef<HTMLAudioElement>(null);
 const {data:userData}=useUsers(data?.artistId!);
+const {data:users}=useUsers();
 const {data:listenedTimes}=useListenedSong(data?.id!);
 const dispatch= useDispatch();
 const isPlaying=useSelector((state:any)=>state.playmusic.isPlaying);
@@ -35,8 +36,11 @@ const handlePlay=()=>{
     dispatch(playMusicActions.startSong({songPath:'@/public/advertisement/spotifyAd.mp3', imageUrl:null, artists:['Clonify'], title:'Advertistement', songId:'AddVertisement'}));
   }else{
 if(data && userData){
-  const artist = userData.find((userData: any) => userData.id === data.artistId)?.username;
+  if(users){
+    const artist = users && users.find((user: any) => user.id === data.artistId).username;
+  console.log(users && users.find((user: any) => user.id === data.artistId));
   dispatch(playMusicActions.startSong({songCover:data.songCover, songLength:0, songPath:data.musicPath, title:data.title, artistList:[artist], songId:data.id}));
+  }
 }
   }
 }
