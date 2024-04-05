@@ -1,5 +1,6 @@
 import React, {
   useEffect,
+  useRef,
   useState,
 } from 'react';
 
@@ -34,13 +35,16 @@ function Layout({ children }: Props) {
   const [isSwipedLeft, setIsSwipedLeft] = useState(false);
   const showRight = useSelector((state: any) => state.playmusic.showRightBar);
   const disaptch = useDispatch();
+  const containerRef=useRef<HTMLDivElement | null>(null);
 
   const toggleRight = () => {
     disaptch(playMusicActions.toggleRightBar());
   }
 
   const onTouchMove = (e: React.TouchEvent) => {
-    console.log(e.targetTouches[0]);
+    if(e.targetTouches[0].pageX >= 300){
+      setIsSwipedLeft(true);
+    }
   }
   const onSwitchOff = () => setIsSwipedLeft(false);
   const onPressProfileImage = async () => {
@@ -61,7 +65,7 @@ function Layout({ children }: Props) {
     {children}
     </div>;
 
-  const SessionedLayout = (<><div onTouchMove={onTouchMove} className={`flex h-full w-full`}>
+  const SessionedLayout = (<><div ref={containerRef} onTouchMove={onTouchMove} className={`flex h-full w-full`}>
 
     <LeftBar onSwitchOff={onSwitchOff} isSwipedLeft={isSwipedLeft} />
 
