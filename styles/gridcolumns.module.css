@@ -15,3 +15,7 @@ grid-column: span 8 / span 8;
 .gridcolumns-desktop .column-3{
     grid-column: span 3 / span 3;
 }
+
+.autofill{
+    grid-column: span 1 / span 1;
+ }

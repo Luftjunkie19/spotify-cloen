@@ -14,7 +14,7 @@ import { LuLibrary } from 'react-icons/lu';
 import { MdWorkspacePremium } from 'react-icons/md';
 import { PiMusicNotesPlus } from 'react-icons/pi';
 import { useDispatch } from 'react-redux';
-
+import classes from '@/styles/gridcolumns.module.css'
 import { songModalActions } from '@/contexts/SongModalContext';
 import useCurrentUser from '@/hooks/useCurrentUser';
 
@@ -75,11 +75,9 @@ function LeftBar({isSwipedLeft, isSwipedRight, onSwitchOff}: Props) {
 
 
   return (<>
-    <div className={`bg-spotifyOpacityDarkGray rounded-t-md border-spotifyGreen border-r h-screen col-span-1 sm:hidden lg:flex flex-col gap-3`}>
-      <div className="flex flex-col my-2 gap-2 items-center justify-center">
-       <FaSpotify className='text-white hover:text-spotifyOpacityGreen transition cursor-pointer hover:rotate-90' size={36}/>
-        <p className="tracking-wide text-base text-white">Spotify</p>
-      </div>
+  <div className={`bg-spotifyOpacityDarkGray rounded-t-md border-spotifyGreen border-r h-screen sm:hidden col-span-1 lg:flex flex-col gap-3`}>
+      <FaSpotify className='text-spotifyGreen self-center text-4xl my-1'/>
+      
       <div className="flex items-center flex-col gap-4 sm:p-4 lg:p-2">
         {linksArray.map((link, i) => (
           <Link href={`${link.path}`} key={i} className={`flex ${link.path === router.asPath ? 'bg-spotifyGreen' : ''} transition p-3 2xl:w-full sm:justify-center 2xl:justify-start rounded-full hover:bg-spotifyOpacityGreen gap-4 items-center `}>

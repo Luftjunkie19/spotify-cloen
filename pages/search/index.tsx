@@ -1,11 +1,13 @@
+import MusicGenres from '@/components/home-page/tabs/MusicGenres';
 import React from 'react';
+import { useSelector } from 'react-redux';
 
-type Props = {}
 
-function SearchPage({}: Props) {
+function SearchPage() {
+  const showRight = useSelector((state: any) => state.playmusic.showRightBar);
   return (
-      <div>
-        <p>Search Page</p>
+      <div className='w-full h-full'>
+  <MusicGenres closedRight={showRight} />
       </div>
   )
 }

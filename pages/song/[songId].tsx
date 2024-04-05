@@ -22,6 +22,7 @@ const {songId}=router.query;
 const {data}=useSongs(songId as string);
 const {data:currentUserData}=useCurrentUser();
 const songRef= useRef<HTMLAudioElement>(null);
+const showRight = useSelector((state:any)=>state.playmusic.showRightBar);
 const {data:userData}=useUsers(data?.artistId!);
 const {data:users}=useUsers();
 const {data:listenedTimes}=useListenedSong(data?.id!);
@@ -49,16 +50,16 @@ if(data && userData){
   return (
     <div className='w-full h-full bg-spotifySpecificOpacityGreen'>
       {data && <>
-      <div className="flex gap-6 p-4">
-      <Image width={192} height={192} src={data.songCover} alt='cover' className='w-48 h-48 object-cover rounded-md'/>
-<div className="flex flex-col gap-8">
+      <div className={`flex xl:items-start gap-6 p-4 ${showRight ? 'sm:flex-col xl:flex-row' : ' flex-row'}`}>
+      <Image width={192} height={192} src={data.songCover} alt='cover' className='w-48 h-48 md:self-center object-cover rounded-md'/>
+<div className="flex flex-col gap-6 xl:gap-8">
   <p className="text-xs">Song</p>
-  <p className='font-medium sm:text-2xl lg:text-6xl 2xl:text-8xl'>{data.title}</p>
+  <p className='font-medium sm:text-2xl lg:text-3xl 2xl:text-8xl'>{data.title}</p>
   <div className="">
     {data && userData && <div className='flex gap-6  items-center'>
 <Image width={48} height={48} alt='' className='rounded-full w-12 h-12 object-cover border-2 border-spotifyGreen' src={userData.profileImg}/>
 <Link className='hover:font-medium hover:underline' href={`/users/${userData.id}`}>{userData.username}</Link>  
-<p>{format(data.releaseDate as string, "do MMMM yyyy")}</p>
+<p className='lg:text-xs xl:text-base sm:text-base'>{format(data.releaseDate as string, "do MMMM yyyy")}</p>
     </div>
     }
   </div>

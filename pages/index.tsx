@@ -5,13 +5,12 @@ import { useRouter } from 'next/router';
 import { useSelector } from 'react-redux';
 
 import InitalTabs from '@/components/home-page/InitalTabs';
-import MusicGenres from '@/components/home-page/tabs/MusicGenres';
 import RecentAlbums from '@/components/home-page/tabs/RecentAlbums';
 import RecentlyAdded from '@/components/home-page/tabs/RecentlyAdded';
 import RecentPlaylists from '@/components/home-page/tabs/RecentPlaylists';
 
 
-export default function Home() {
+export default function Home(props) {
 const router = useRouter();
   const showRight = useSelector((state: any) => state.playmusic.showRightBar);
   useEffect(() => {
@@ -42,7 +41,6 @@ const router = useRouter();
       
       <InitalTabs />
 
- <MusicGenres closedRight={showRight} />
       <RecentlyAdded closedRight={showRight} />
       <RecentPlaylists/>
       <RecentAlbums/>

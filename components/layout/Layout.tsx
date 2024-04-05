@@ -61,11 +61,11 @@ function Layout({ children }: Props) {
     {children}
     </div>;
 
-  const SessionedLayout = (<><div onTouchMove={onTouchMove} className={`lg:grid h-full w-full ${!showRight ? `grid-cols-10` : `${classes["gridcolumns-desktop"]}`}`}>
+  const SessionedLayout = (<><div onTouchMove={onTouchMove} className={`flex h-full w-full`}>
 
     <LeftBar onSwitchOff={onSwitchOff} isSwipedLeft={isSwipedLeft} />
 
-    <div onClick={onSwitchOff} className={`${!showRight ? 'col-span-9' : 'xl:col-span-8 lg:col-span-7'} overflow-auto min-h-screen`}>
+    <div onClick={onSwitchOff} className={` flex-1 overflow-y-auto overflow-x-hidden min-h-screen`}>
       <UserBar onPressProfile={onPressProfileImage} />
       {children}
     </div>

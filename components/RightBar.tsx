@@ -28,7 +28,7 @@ const songId= useSelector((state:any)=>state.playmusic.songId);
   }
 
   return (
-    <div className={`border-l-spotifyMediumGray ${!showRight ? 'hidden' : 'sm:hidden lg:block'} lg:col-span-4 xl:col-span-3 border-l p-4 w-full h-full`}>
+    <div className={`border-l-spotifyMediumGray ${!showRight ? 'hidden' : 'sm:hidden lg:block'} lg:w-[18rem] xl:max-w-sm w-full  border-l p-4`}>
       <Cover songId={songId} close={onClose} title={songTitle} artists={artists} imageURL={songCover} />  
 
       <NextSong title={randomSong?.title} cover={randomSong?.songCover} artists={artists}/>
