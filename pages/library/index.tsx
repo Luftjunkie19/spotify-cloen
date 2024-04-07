@@ -1,15 +1,19 @@
 import React from 'react';
 
 import Image from 'next/image';
-import { FaClock, FaHeart, FaPlay } from 'react-icons/fa';
+import {
+  FaClock,
+  FaHeart,
+  FaPlay,
+} from 'react-icons/fa';
 import {
   FaList,
   FaShuffle,
 } from 'react-icons/fa6';
 
+import SongItem from '@/components/home-page/items/SongItem';
 import useCurrentUser from '@/hooks/useCurrentUser';
 import useSongs from '@/hooks/useSongs';
-import SongItem from '@/components/home-page/items/SongItem';
 
 type Props = {}
 
@@ -19,11 +23,11 @@ function LibraryPage({ }) {
   return (
     <div className='w-full min-h-screen bg-spotifyBlack'>
       {data && <>
-      <div className="flex px-6 py-4 gap-6 items-center">
+      <div className="flex sm:flex-col md:flex-row px-6 py-4 gap-6 md:items-center">
           <Image  className='rounded-lg object-cover w-48 h-48' width={56} height={60} src={'https://i.pinimg.com/474x/e5/4f/19/e54f19d0ea4c93db35885d386d9b9677.jpg'} alt='width'/>
 <div className="flex flex-col gap-4">
   <p>Playlist</p>
-          <p className="text-7xl font-medium">Liked Songs</p>
+          <p className="lg:text-7xl md:text-4xl sm:text-3xl font-medium">Liked Songs</p>
          <div className="flex items-center gap-6">
          <div className="flex gap-2 items-center">
           <Image src={data.profileImg} alt="" width={32} height={32} className="w-8 h-8 rounded-full"/>
@@ -52,7 +56,7 @@ function LibraryPage({ }) {
         </div>
 </div>
 
-<div className="flex p-4 justify-between items-center border-b-2 border-spotifyLightGray">
+<div className="sm:hidden md:flex p-4 justify-between items-center border-b-2 border-spotifyLightGray">
 <div className="flex items-center gap-2">
   <p>#</p>
   <p>Title</p>

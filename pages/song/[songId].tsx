@@ -1,21 +1,35 @@
-import { useRouter } from 'next/router';
 import React, { useRef } from 'react';
-import { InferGetStaticPropsType } from "next";
-import useUsers from '@/hooks/useUsers';
-import useSongs from '@/hooks/useSongs';
+
+import { format } from 'date-fns';
+import { InferGetStaticPropsType } from 'next';
 import Image from 'next/image';
-import {format} from 'date-fns';
 import Link from 'next/link';
-import { FaClock, FaPlay, FaShuffle } from 'react-icons/fa6';
-import { FaList, FaPause, FaPlusCircle } from 'react-icons/fa';
-import { BsThreeDots } from "react-icons/bs";
-import useListenedSong from '@/hooks/useListenedSong';
-import { useDispatch, useSelector } from 'react-redux';
-import { playMusicActions } from '@/contexts/PlayMusicContext';
+import { useRouter } from 'next/router';
+import { BsThreeDots } from 'react-icons/bs';
+import {
+  FaList,
+  FaPause,
+  FaPlusCircle,
+} from 'react-icons/fa';
+import {
+  FaClock,
+  FaPlay,
+  FaShuffle,
+} from 'react-icons/fa6';
+import {
+  useDispatch,
+  useSelector,
+} from 'react-redux';
+
 import SongItem from '@/components/home-page/items/SongItem';
+import { playMusicActions } from '@/contexts/PlayMusicContext';
 import useCurrentUser from '@/hooks/useCurrentUser';
+import useListenedSong from '@/hooks/useListenedSong';
+import useSongs from '@/hooks/useSongs';
+import useUsers from '@/hooks/useUsers';
+
 type Props = {}
-import MusicImage from '@/assets/360_F_454661277_NtQYM8oJq2wOzY1X9Y81FlFa06DVipVD.jpg';
+
 function SongPage(props: InferGetStaticPropsType<typeof getStaticProps>) {
 const router=useRouter();
 const {songId}=router.query;
@@ -50,7 +64,7 @@ if(data && userData){
   return (
     <div className='w-full h-full bg-spotifySpecificOpacityGreen'>
       {data && <>
-      <div className={`flex xl:items-start gap-6 p-4 ${showRight ? 'sm:flex-col xl:flex-row' : ' flex-row'}`}>
+      <div className={`flex xl:items-start gap-6 p-4 ${showRight ? 'sm:flex-col xl:flex-row' : 'sm:flex-col lg:flex-row'}`}>
       <Image width={192} height={192} src={data.songCover} alt='cover' className='w-48 h-48 md:self-center object-cover rounded-md'/>
 <div className="flex flex-col gap-6 xl:gap-8">
   <p className="text-xs">Song</p>
@@ -66,7 +80,7 @@ if(data && userData){
 </div>
       </div>
 <div className="w-full bg-spotifyOpacityDarkGray">
-  <div className="flex p-4 justify-between">
+  <div className="flex  p-4 justify-between">
     <div className="flex gap-8">
       <button onClick={handlePlay} className=' bg-spotifyGreen p-4 rounded-full'>
         {isPlaying ? <FaPause className='text-black' size={18}/> :  <FaPlay className='text-black' size={18}/>}
@@ -80,7 +94,7 @@ if(data && userData){
 
     <button><FaList/></button>
   </div>
-  <div className="flex p-4 mx-4 justify-between border-b-2 border-b-spotifyMediumGray m-0">
+  <div className="sm:hidden md:flex p-4 mx-4 justify-between border-b-2 border-b-spotifyMediumGray m-0">
    <div className="flex gap-2">
     <p>#</p>
     <p>Title</p>
