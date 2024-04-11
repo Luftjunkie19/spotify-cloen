@@ -63,12 +63,13 @@ function BottomPlayBar({ rightClosed, toggleRight }: Props) {
 }
 
 }, [audioData]);
+
 const conditionalAdShow= userData && !userData.isSubscribed && (new Date().getTime() -  new Date(userData.pastFromLastAds).getTime()) / 60000 >= 30;
 const handleEnded=()=>{
   const randomSong = songs && songs.filter((item:any)=>item.id !== songId)[Math.floor(Math.random() * songs.filter((item:any)=>item.id !== songId).length)];
-  
   const randomArtist = users && randomSong && users.find((userItem:any)=>userItem.id === randomSong.artistId);
- if(audioData){
+
+  if(audioData){
   if(audioData.loop){
     audioData.currentTime=0;
     audioData.play();
@@ -96,7 +97,9 @@ const handleEnded=()=>{
 
     console.log(randomSong);
     dispatch(playMusicActions.togglePlayingSong());
-     dispatch(playMusicActions.startSong({songPath: randomSong?.musicPath, imageUrl: randomSong?.songCover, artists: randomArtist && [randomArtist], title:randomSong?.title, songId:randomSong?.id}));
+    if(randomSong){
+      dispatch(playMusicActions.startSong({songPath: randomSong.musicPath, imageUrl: randomSong.songCover, artists: randomArtist && [randomArtist], title:randomSong.title, songId:randomSong.id}));
+    }
 
      fetch('/api/next-song/songToList',{
        method:'POST',
@@ -177,7 +180,7 @@ if(audioData){
 
 console.log(randomSong, randomArtist);
 
-if(userData.isSubscribed){
+if(userData.isSubscribed && randomSong){
   dispatch(playMusicActions.startSong({songPath: randomSong.musicPath, songId:randomSong.id, imageUrl: randomSong.songCover, artists:[randomArtist], title:randomSong.title}));
   fetch('/api/next-song/songToList',{
     method:'POST',
@@ -191,7 +194,7 @@ if(userData.isSubscribed){
 
 
 
-  if(!userData.isSubscribed && userData.availableSkips > 0){
+  if(!userData.isSubscribed && userData.availableSkips > 0 && randomSong){
     fetch(`api/next-song/${userData.id}`).then((result)=>result.json()).then((resultData)=>console.log(resultData));
     dispatch(playMusicActions.startSong({songPath: randomSong.musicPath, imageUrl: randomSong.songCover, artists:[randomArtist], title:randomSong.title, songId:randomSong.id}));
     fetch('/api/next-song/songToList',{
