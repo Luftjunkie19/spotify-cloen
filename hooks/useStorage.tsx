@@ -9,7 +9,7 @@ type Props = {
 function useStorage() {
  
     const uploadImage = async ({ path, image }: Props) => {
-        const uploadPath = `${path}/${image.name}`;
+        const uploadPath = `${path}/${image}`;
         const imageRef = ref(storage, uploadPath);
 
         // Convert the image to Blob
