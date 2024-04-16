@@ -15,7 +15,7 @@ function MusicGenres({closedRight}: Props) {
   return (
     <>
       <p className='px-4 font-medium text-2xl'>The Best music-genres:</p>
-      <div className={`grid snap-always snap-mandatory gap-4 sm:auto-cols-[50%] md:auto-cols-[35%]  ${closedRight ? 'lg:auto-cols-[40%]' : 'lg:auto-cols-[25%]'} sm:overflow-x-auto snap-inline sm:grid-flow-col xl:snap-none ${closedRight ? 'xl:grid-cols-4 2xl:grid-cols-7' : 'xl:grid-cols-6 2xl:grid-cols-7 3xl:grid-cols-9'} px-4`}>
+      <div className={`grid snap-always snap-mandatory gap-4 sm:auto-cols-[50%] md:auto-cols-[35%]  ${closedRight ? 'lg:auto-cols-[40%]' : 'lg:auto-cols-[25%]'} sm:overflow-x-auto snap-inline sm:grid-flow-col xl:snap-none ${closedRight ? 'xl:grid-cols-4 2xl:grid-cols-5 3xl:grid-cols-6' : 'xl:grid-cols-6 2xl:grid-cols-7 3xl:grid-cols-9'} px-4`}>
       {genres.slice(0, 4).map((genre, i) => (<div className={`flex overflow-hidden cursor-pointer group snap-always snap-center flex-col relative top-0 left-0 gap-2`} key={i}>
         <div className="relative overflow-hidden top-0 left-0 w-full h-36">
        { genre.image &&  <Image src={genre.image} alt='' className={`w-full h-36 rounded-lg object-cover ${colourArray[i]}`} />}

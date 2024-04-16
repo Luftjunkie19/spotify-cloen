@@ -1,10 +1,14 @@
+import {
+  getDownloadURL,
+  ref,
+  uploadBytes,
+} from 'firebase/storage';
+
 import { storage } from '@/pages/_app';
-import { Blob } from 'buffer';
-import {getDownloadURL, getStorage, ref, uploadBytes} from 'firebase/storage'
 
 type Props = {
     path: string,
-    imageUrl:string,
+    imageUrl:any,
 }
 
 function useStorage() {

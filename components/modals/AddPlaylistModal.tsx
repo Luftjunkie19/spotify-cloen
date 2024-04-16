@@ -11,9 +11,9 @@ import { SelectValue } from 'react-tailwindcss-select/dist/components/type';
 import { playlistModalActions } from '@/contexts/PlayListModalContext';
 import useCurrentUser from '@/hooks/useCurrentUser';
 import useSongs from '@/hooks/useSongs';
+import useStorage from '@/hooks/useStorage';
 
 import Modal from './Modal';
-import useStorage from '@/hooks/useStorage';
 
 type Props = {}
 
@@ -48,7 +48,7 @@ const [selectedSongs, setSelectedSongs] = useState<SelectValue | null>(null);
     }
     
     reader.readAsDataURL(selectedImage);
-    const uploadResult = await uploadImage({path:`playlistCover/${user.id}/${playlistName}`, imageUrl:image as string});
+    const uploadResult = await uploadImage({path:`playlistCover/${user.id}/${playlistName}`, imageUrl:image});
     console.log(uploadResult);
     setImage(uploadResult);
   }
