@@ -1,3 +1,4 @@
+import { Blob } from 'buffer';
 import {
   getDownloadURL,
   ref,
@@ -5,25 +6,23 @@ import {
 } from 'firebase/storage';
 
 import { storage } from '@/pages/_app';
-import { Blob } from 'buffer';
-import {getDownloadURL, getStorage, ref, uploadBytes} from 'firebase/storage'
 
 type Props = {
     path: string,
-    imageUrl:string,
+    imageUrl:any,
 }
 
 function useStorage() {
  
-    const uploadImage = async ({ path, image }: Props) => {
-        const uploadPath = `${path}/${image}`;
+    const uploadImage = async ({ path, imageUrl }: Props) => {
+        const uploadPath = `${path}/${imageUrl}`;
         const imageRef = ref(storage, uploadPath);
 
         // Convert the image to Blob
-        const blob = new Blob([image]);
+        const blob = new Blob([imageUrl]);
 
         // Upload the image
-        await uploadBytes(imageRef, blob);
+        await uploadBytes(imageRef, imageUrl);
         
         // Get the download URL
         const photoURL = await getDownloadURL(imageRef);
