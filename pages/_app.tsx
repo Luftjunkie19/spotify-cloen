@@ -1,15 +1,16 @@
 import '@/styles/globals.css';
 
+// Import the functions you need from the SDKs you need
+import { initializeApp } from 'firebase/app';
+import { getStorage } from 'firebase/storage';
 import { SessionProvider } from 'next-auth/react';
 import type { AppProps } from 'next/app';
+import { Toaster } from 'react-hot-toast';
 import { Provider } from 'react-redux';
-import {Toaster} from 'react-hot-toast';
+
 import Layout from '@/components/layout/Layout';
 import { store } from '@/contexts/store';
 
-// Import the functions you need from the SDKs you need
-import { initializeApp } from "firebase/app";
-import { getStorage } from 'firebase/storage';
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -28,7 +29,7 @@ export const app = initializeApp(firebaseConfig);
 
 export const storage = getStorage(app);
 
-export default function App({ Component,  pageProps: { session, ...pageProps }}) {
+export default function App({ Component,  pageProps: { session, ...pageProps }}:AppProps) {
   return <>
     <SessionProvider session={session}>
       <Provider store={store}>
