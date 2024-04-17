@@ -9,8 +9,9 @@ import RecentAlbums from '@/components/home-page/tabs/RecentAlbums';
 import RecentlyAdded from '@/components/home-page/tabs/RecentlyAdded';
 import RecentPlaylists from '@/components/home-page/tabs/RecentPlaylists';
 
+type Props={}
 
-export default function Home(props) {
+export default function Home({}:Props) {
 const router = useRouter();
   const showRight = useSelector((state: any) => state.playmusic.showRightBar);
   useEffect(() => {
