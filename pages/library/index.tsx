@@ -15,9 +15,9 @@ import SongItem from '@/components/home-page/items/SongItem';
 import useCurrentUser from '@/hooks/useCurrentUser';
 import useSongs from '@/hooks/useSongs';
 
-type Props = {}
+interface Props {}
 
-function LibraryPage({ }) {
+function LibraryPage({ }:Props) {
   const { data } = useCurrentUser();
   const {data:songs}=useSongs();
   return (
