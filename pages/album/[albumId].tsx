@@ -112,7 +112,7 @@ export const getStaticPaths= async ()=>{
   }
   
   export const getStaticProps = async () => {
-    const data= await fetch('/api/album/albums');
+    const data= await fetch('http://127.0.0.1:1337/api/album/albums');
     const  albums = await data.json();
   
   

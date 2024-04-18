@@ -116,7 +116,7 @@ export default UserDetailedPage
 
 
 export const getStaticPaths= async () =>{
-    const fetchData= await fetch('/api/users/allUsers');
+    const fetchData= await fetch('http://127.0.0.1:1337/api/users/allUsers');
 
     const users= await  fetchData.json();
 
@@ -129,7 +129,7 @@ export const getStaticPaths= async () =>{
 }
 
 export const getStaticProps=async ()=>{
-    const fetchData= await fetch('/api/users/allUsers');
+    const fetchData= await fetch('http://127.0.0.1:1337/api/users/allUsers');
 
     const users= await  fetchData.json();
 

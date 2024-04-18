@@ -118,7 +118,7 @@ export default SongPage
 
 
 export const getStaticProps= async ()=>{
-  const fetchedData= await fetch('/api/songs');
+  const fetchedData= await fetch('http://127.0.0.1:1337/api/songs');
   const songs=await fetchedData.json();
 
   return {
@@ -130,7 +130,7 @@ export const getStaticProps= async ()=>{
 }
 
 export const getStaticPaths= async ()=>{
-const fetchedData= await fetch('/api/songs');
+const fetchedData= await fetch('http://127.0.0.1:1337/api/songs');
 const songs=await fetchedData.json();
 
 const songsConvertedToParam=songs.map((song:any) => ({params: {songId: song.id}}));
