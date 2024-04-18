@@ -42,6 +42,12 @@ export const PlayMusicContext = createSlice({
             state.currentTime = 0;
             state.isPlaying = true;
         },
+        updateSongTime(state, action){
+            state.currentTime = action.payload;
+        },
+        updateSongLength(state, action) {
+            state.songLength = action.payload;
+        },
         startSong(state, action) {
             const { songCover, songLength, songPath, title, artistList, songId } = action.payload;
             state.songPath = songPath;

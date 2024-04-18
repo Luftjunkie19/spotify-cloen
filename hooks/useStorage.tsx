@@ -18,9 +18,6 @@ function useStorage() {
         const uploadPath = `${path}/${imageUrl}`;
         const imageRef = ref(storage, uploadPath);
 
-        // Convert the image to Blob
-        const blob = new Blob([imageUrl]);
-
         // Upload the image
         await uploadBytes(imageRef, imageUrl);
         
