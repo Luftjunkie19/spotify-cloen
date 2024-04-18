@@ -90,7 +90,7 @@ return songObject;
 export default PlaylistPage
 
 export const getStaticPaths= async ()=>{
-  const data= await fetch('http://localhost:3000/api/playlist/playlists');
+  const data= await fetch('/api/playlist/playlists');
   const  playlists = await data.json();
 
   const convertedPlaylists= playlists.map((item:any) => ({ params: { playlistId: item.id }}));
