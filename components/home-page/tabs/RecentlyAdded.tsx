@@ -2,16 +2,16 @@
 import React from 'react';
 
 import Image from 'next/image';
+import Link from 'next/link';
 import Marquee from 'react-fast-marquee';
 import { FaPlay } from 'react-icons/fa6';
 import { useDispatch } from 'react-redux';
-import MusicImage from '@/assets/360_F_454661277_NtQYM8oJq2wOzY1X9Y81FlFa06DVipVD.jpg';
+
 import SongSkeleton from '@/components/skeletons/SongSkeleton';
 import { playMusicActions } from '@/contexts/PlayMusicContext';
+import useCurrentUser from '@/hooks/useCurrentUser';
 import useSongs from '@/hooks/useSongs';
 import useUsers from '@/hooks/useUsers';
-import Link from 'next/link';
-import useCurrentUser from '@/hooks/useCurrentUser';
 
 type Props = {
   closedRight: boolean;
@@ -39,7 +39,7 @@ function RecentlyAdded({ closedRight }: Props) {
   return (
     <>
       <p className='px-4 font-medium text-2xl'>Recently added songs:</p>
-      <div className={`grid snap-always snap-mandatory gap-4 sm:auto-cols-[50%] md:auto-cols-[25%] lg:auto-cols-[24%] sm:overflow-x-auto snap-inline sm:grid-flow-col xl:snap-none ${closedRight ? 'xl:grid-cols-4 2xl:grid-cols-5' : 'xl:grid-cols-6 2xl:grid-cols-6 3xl:grid-cols-8'} px-4`}>
+      <div className={`grid snap-always snap-mandatory gap-4 sm:auto-cols-[50%] md:auto-cols-[35%] ${closedRight ? 'lg:auto-cols-[40%]' : 'lg:auto-cols-[25%]'} sm:overflow-x-auto snap-inline sm:grid-flow-col xl:snap-none ${closedRight ? 'xl:grid-cols-4 2xl:grid-cols-5 3xl:grid-cols-6' : 'xl:grid-cols-6 2xl:grid-cols-6 3xl:grid-cols-8'} px-4`}>
         {isLoading && new Array().fill(0, 0, 6).map((item, i) => <SongSkeleton key={i} />)}
 
       {!isLoading && data && data.slice(0, closedRight ? 4 : 6).map((song:any, i:any) => (<Link href={`/song/${song.id}`} className={`flex hover:bg-spotifyOpacityDarkGray py-2 px-1 transition-all duration-500 rounded-lg overflow-hidden cursor-pointer group snap-always snap-center flex-col relative top-0 left-0 gap-2`} key={i}>

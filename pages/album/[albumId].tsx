@@ -76,7 +76,7 @@ function AlbumPage({}: InferGetStaticPropsType<typeof getStaticProps>) {
 
     <button><FaList/></button>
   </div>
-  <div className="flex p-4 mx-4 justify-between border-b-2 border-b-spotifyMediumGray m-0">
+  <div className="sm:hidden md:flex p-4 mx-4 justify-between border-b-2 border-b-spotifyMediumGray m-0">
    <div className="flex gap-2">
     <p>#</p>
     <p>Title</p>

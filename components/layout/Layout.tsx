@@ -17,7 +17,6 @@ import {
 import LeftBar from '@/components/LeftBar';
 import RightBar from '@/components/RightBar';
 import { playMusicActions } from '@/contexts/PlayMusicContext';
-import classes from '@/styles/gridcolumns.module.css';
 
 import BottomPlayBar from '../BottomPlayBar';
 import UserBar from '../home-page/UserBar';
@@ -33,6 +32,7 @@ function Layout({ children }: Props) {
   const router = useRouter();
   const [sessionLoaded, setSessionLoaded] = useState(false);
   const [isSwipedLeft, setIsSwipedLeft] = useState(false);
+  const [startX, setStartX] = useState(0);
   const showRight = useSelector((state: any) => state.playmusic.showRightBar);
   const disaptch = useDispatch();
   const containerRef=useRef<HTMLDivElement | null>(null);
@@ -41,11 +41,22 @@ function Layout({ children }: Props) {
     disaptch(playMusicActions.toggleRightBar());
   }
 
-  const onTouchMove = (e: React.TouchEvent) => {
-    if(e.targetTouches[0].pageX >= 300){
+  const onTouchStart = (e: React.TouchEvent) => {
+    setStartX(e.targetTouches[0].pageX);
+  }
+
+const onTouchMove = (e: React.TouchEvent) => {
+  // Check if the touch event target is the main container
+  console.log(containerRef.current);
+  if (containerRef.current) {
+    const  currentPageX = e.targetTouches[0].pageX - startX;
+    if (currentPageX >= 200) {
       setIsSwipedLeft(true);
+    } else {
+setIsSwipedLeft(false);
     }
   }
+}
   const onSwitchOff = () => setIsSwipedLeft(false);
   const onPressProfileImage = async () => {
    await signOut();
@@ -65,11 +76,11 @@ function Layout({ children }: Props) {
     {children}
     </div>;
 
-  const SessionedLayout = (<><div ref={containerRef} onTouchMove={onTouchMove} className={`flex h-full w-full`}>
+  const SessionedLayout = (<><div ref={containerRef}  className={`flex h-full w-full`}>
 
     <LeftBar onSwitchOff={onSwitchOff} isSwipedLeft={isSwipedLeft} />
 
-    <div onClick={onSwitchOff} className={` flex-1 overflow-y-auto overflow-x-hidden min-h-screen`}>
+    <div onTouchStart={onTouchStart} onTouchMove={onTouchMove} onClick={onSwitchOff} className={` flex-1 overflow-y-auto overflow-x-hidden min-h-screen`}>
       <UserBar onPressProfile={onPressProfileImage} />
       {children}
     </div>

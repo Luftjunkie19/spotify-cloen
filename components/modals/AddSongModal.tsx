@@ -47,7 +47,7 @@ function AddSongModal() {
     }
     
     reader.readAsDataURL(selectedAudio);
-    const uploadResult = await uploadImage({path:`songs/${user.id}/${songName}`, imageUrl:selectedAudio as string});
+    const uploadResult = await uploadImage({path:`songs/${user.id}/${songName}`, imageUrl:selectedAudio});
 console.log(uploadResult);
     setAudioFile(uploadResult);
     
@@ -104,8 +104,8 @@ console.log(uploadResult);
         
         <div className="">
           <p>Song genre:</p>
-          <select defaultValue="Select music genre" onChange={(e)=>setSongGenre(e.target.value)} className="select select-bordered w-full max-w-xs">
-  <option disabled selected>Select music genre</option>
+          <select defaultValue={songGenre as string} onChange={(e)=>setSongGenre(e.target.value)} className="select select-bordered w-full max-w-xs">
+  <option disabled>Select music genre</option>
             {genres.map((item, i) => (<option value={item.genre as string} key={i}>{item.genre}</option>))}
 </select>
         </div>
