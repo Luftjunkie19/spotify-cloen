@@ -1,16 +1,24 @@
 import React from 'react';
-import { InferGetStaticPropsType } from "next";
-import { useRouter } from 'next/router';
-import usePlaylists from '@/hooks/usePlaylists';
-import SongItem from '@/components/home-page/items/SongItem';
-import { BsThreeDots } from 'react-icons/bs';
-import { FaClock, FaList, FaPause, FaPlay, FaPlusCircle } from 'react-icons/fa';
-import { FaShuffle } from 'react-icons/fa6';
+
 import { format } from 'date-fns';
-import Link from 'next/link';
+import { InferGetStaticPropsType } from 'next';
 import Image from 'next/image';
-import useSongs from '@/hooks/useSongs';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
+import { BsThreeDots } from 'react-icons/bs';
+import {
+  FaClock,
+  FaList,
+  FaPause,
+  FaPlay,
+  FaPlusCircle,
+} from 'react-icons/fa';
+import { FaShuffle } from 'react-icons/fa6';
 import { useSelector } from 'react-redux';
+
+import SongItem from '@/components/home-page/items/SongItem';
+import usePlaylists from '@/hooks/usePlaylists';
+import useSongs from '@/hooks/useSongs';
 import useUsers from '@/hooks/useUsers';
 
 type Props = {}
@@ -90,7 +98,7 @@ return songObject;
 export default PlaylistPage
 
 export const getStaticPaths= async ()=>{
-  const data= await fetch('http://127.0.0.1:1337/api/playlist/playlists');
+  const data= await fetch('http://localhost:3000/api/playlist/playlists');
   const  playlists = await data.json();
 
   const convertedPlaylists= playlists.map((item:any) => ({ params: { playlistId: item.id }}));
@@ -102,7 +110,7 @@ return {
 }
 
 export const getStaticProps = async () => {
-  const data= await fetch('http://127.0.0.1:1337/api/playlist/playlists');
+  const data= await fetch('http://localhost:3000/api/playlist/playlists');
   const  playlists = await data.json();
 
 

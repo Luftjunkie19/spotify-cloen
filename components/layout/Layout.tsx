@@ -50,7 +50,7 @@ const onTouchMove = (e: React.TouchEvent) => {
   console.log(containerRef.current);
   if (containerRef.current) {
     const  currentPageX = e.targetTouches[0].pageX - startX;
-    if (currentPageX >= 200) {
+    if (currentPageX >= 250) {
       setIsSwipedLeft(true);
     } else {
 setIsSwipedLeft(false);
