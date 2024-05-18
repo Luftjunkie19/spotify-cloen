@@ -13,11 +13,14 @@ if(!skiperObject){
     throw new Error('No skipper Id has been passed');
 }
 
-await prisma.user.update({where:{
-    id:userId as string,
-}, data:{
-    availableSkips: skiperObject.availableSkips - 1,
-}});
+if(skiperObject.availableSkips > 0){
+    await prisma.user.update({where:{
+        id:userId as string,
+    }, data:{
+        availableSkips: skiperObject.availableSkips - 1,
+    }});
+}
+
 
 return res.status(201).json('Successfully moved forward');
 }

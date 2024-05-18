@@ -36,10 +36,16 @@ function EditModal({isOpen, onClose, userData, changePhoto, changeUsername, subm
                       </div>
                   </div>
 
+
                   <div className="flex flex-col gap-4">
                       <input onChange={changeUsername} type="text" className=' bg-spotifyMediumGray focus:border-none outline-none rounded-lg p-2 font-inherit border-none' value={username}/>
                       <button onClick={submitForm} className='rounded-full bg-white text-spotifyBlack px-2 py-3 w-24 font-medium self-end'>Save</button>
                 </div>
+</div>
+
+<div className="flex flex-col gap-2">
+    <p>Description:</p>
+<textarea className="textarea textarea-ghost h-24 resize-none outline-none textarea-success"></textarea>
 </div>
 
           </div>

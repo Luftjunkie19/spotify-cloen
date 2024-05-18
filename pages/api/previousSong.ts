@@ -16,7 +16,11 @@ async function handler(req:NextApiRequest, res:NextApiResponse){
 
     const selectedSong = await prisma.song.findUnique({where:{id:items[songIndex - 1].songId}});
 
-    return res.status(201).json(selectedSong);
+    if(selectedSong){
+        return res.status(201).json(selectedSong);
+    }else{
+        return res.status(201).json(null);
+    }
 }
 
 

@@ -30,13 +30,12 @@ function NextSong({ artists, title, cover }: Props) {
               </button>
 
                 <Image className="w-8 h-8 rounded-md self-center" width={32} height={32} src={cover ? cover as string : songImage} alt={title ? title as string : ''} />
-
               <div className="w-1/2 flex flex-col gap-1">
                   <Marquee play={title ? title.trim().length > 15 : false}>        
               <p className='text-sm text-nowrap'>{title}</p>
                   </Marquee>
                   <Marquee play={title ? title.trim().length > 15 : false}>                      
-              <p className='text-sm text-nowrap'>{artists ? artists.join(",") : ''}</p>
+              <p className='text-sm text-nowrap'>{artists ? artists.join(",") : JSON.stringify(artists)}</p>
                   </Marquee>
           </div>
           </div>

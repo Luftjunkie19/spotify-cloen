@@ -34,6 +34,7 @@ model User {
   createdAlbums    Album[]
   firstName        String?
   lastName         String?
+  description      String?
 }
 
 model listenedSong {

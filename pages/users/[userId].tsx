@@ -29,7 +29,7 @@ const {data:artistData}=useArtist({artistId:userId as string});
     const { data: albums } = useAlbums();
 
     const handlePost= async ()=>{
-    await fetch(`/api/follow/${data.id}`, {
+    await fetch(`http://localhost:3000/api/follow/${data.id}`, {
             method: "POST",
             body: JSON.stringify({ artistId: userId }),
             headers: {
@@ -116,7 +116,7 @@ export default UserDetailedPage
 
 
 export const getStaticPaths= async () =>{
-    const fetchData= await fetch('http://localhost:3000/api/users/allUsers');
+    const fetchData= await fetch(`${process.env.NEXT_PUBLIC_URL}/api/users/allUsers`);
 
     const users= await  fetchData.json();
 
@@ -129,7 +129,7 @@ export const getStaticPaths= async () =>{
 }
 
 export const getStaticProps=async ()=>{
-    const fetchData= await fetch('http://localhost:3000/api/users/allUsers');
+    const fetchData= await fetch(`${process.env.NEXT_PUBLIC_URL}/api/users/allUsers`);
 
     const users= await  fetchData.json();
 

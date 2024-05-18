@@ -44,7 +44,7 @@ function Cover({ title, imageURL, artists, close, songId }: Props) {
   return (
       <div className='flex flex-col gap-6 p-2 w-full'>
           <div className="flex justify-between gap-3">
-              <p>{artists ? artists[0] : ''}</p>
+              <p>{artists ? artists[0] : JSON.stringify(artists)}</p>
 
               <button onClick={close}>
                   <IoCloseOutline size={24} />
@@ -58,7 +58,7 @@ function Cover({ title, imageURL, artists, close, songId }: Props) {
           <p className='text-xl px-1 tracking-wide font-bold'>{title}</p>
                   </Marquee>  : <p className='text-xl px-1 tracking-wide font-bold'>{title}</p>}  
                   
-              <p className=' text-sm font-medium'>{artists ? artists.join(", ") : ''}</p>
+              <p className=' text-sm font-medium'>{artists ? artists.join(", ") : JSON.stringify(artists)}</p>
               </div>
               
               <div className="flex gap-4">

@@ -22,7 +22,7 @@ function PlayedSongScreen({}: InferGetStaticPropsType<typeof getStaticProps>) {
 
 
     const handleLike= async ()=>{
-      const fetchData= await fetch('/api/like', {
+      const fetchData= await fetch(`/api/like`, {
          method:'POST',
          body:JSON.stringify({songId:songId, likerId:userData && userData.id}),
          headers:{
@@ -30,7 +30,7 @@ function PlayedSongScreen({}: InferGetStaticPropsType<typeof getStaticProps>) {
          }
       });
     
-      const response = await fetchData.json();
+      
          
      }
 
@@ -73,7 +73,7 @@ export default PlayedSongScreen
 
 
 export const getStaticProps= async ()=>{
-    const fetchedData= await fetch('http://localhost:3000/api/songs');
+    const fetchedData= await fetch(`http://127.0.0.1/api/songs`);
     const songs=await fetchedData.json();
   
     return {
@@ -85,7 +85,7 @@ export const getStaticProps= async ()=>{
   }
   
   export const getStaticPaths= async ()=>{
-  const fetchedData= await fetch('http://localhost:3000/api/songs');
+  const fetchedData= await fetch(`http://127.0.0.1/api/songs`);
   const songs=await fetchedData.json();
   
   const songsConvertedToParam=songs.map((song:any) => ({params: {songId: song.id}}));

@@ -76,13 +76,12 @@ function BottomPlayBar({ rightClosed, toggleRight }: Props) {
 const conditionalAdShow= userData && !userData.isSubscribed && (new Date().getTime() -  new Date(userData.pastFromLastAds).getTime()) / 60000 >= 30;
 const handleEnded=()=>{
   const randomSong = songs && songs.filter((item:any)=>item.id !== songId)[Math.floor(Math.random() * songs.filter((item:any)=>item.id !== songId).length)];
-  const randomArtist = users && randomSong && users.find((userItem:any)=>userItem.id === randomSong.artistId);
 
   if(audioData){
   if(audioData.loop){
     audioData.currentTime=0;
     audioData.play();
-    fetch('/api/next-song/songToList',{
+    fetch('api/next-song/songToList',{
       method:'POST',
       body:JSON.stringify({songId, userId:userData && userData.id}),
       headers:{
@@ -102,21 +101,19 @@ const handleEnded=()=>{
      .catch(err => console.log(err))
    }  
   else{
-
-
-    console.log(randomSong);
     dispatch(playMusicActions.togglePlayingSong());
     if(randomSong){
-      dispatch(playMusicActions.startSong({songPath: randomSong.musicPath, imageUrl: randomSong.songCover, artists: randomArtist && [randomArtist], title:randomSong.title, songId:randomSong.id}));
+      const randomArtist = users && randomSong && users.find((userItem:any)=>userItem.id === randomSong.artistId).username;
+      dispatch(playMusicActions.startSong({songPath: randomSong.musicPath, imageUrl: randomSong && randomSong.songCover, artists: [randomArtist], title:randomSong.title, songId:randomSong.id}));
     }
 
-     fetch('/api/next-song/songToList',{
+     fetch('api/next-song/songToList',{
        method:'POST',
-       body:JSON.stringify({songId, userId:userData && userData.id}),
+       body:JSON.stringify({songId, userId: userData.id}),
        headers:{
          'Content-Type':'application/json'
        }
-     }).then(result=>result.json()).then(data=>data);
+     }).then(result=>result.json()).then(data=>console.log(data));
    
   }
  }
@@ -181,7 +178,6 @@ const goForward=()=>{
 
   const randomSong = songs && songs.filter((item:any)=>item.id !== songId)[Math.floor(Math.random() * songs.filter((item:any)=>item.id !== songId).length)];
   
-  const randomArtist = users && randomSong && users.find((userItem:any)=>userItem.id === randomSong.artistId);
 
 
 if(audioData){
@@ -189,11 +185,11 @@ if(audioData){
   setMoment(0);
 }
 
-console.log(randomSong, randomArtist);
-
 if(userData.isSubscribed && randomSong){
-  dispatch(playMusicActions.startSong({songPath: randomSong.musicPath, songId:randomSong.id, imageUrl: randomSong.songCover, artists:[randomArtist], title:randomSong.title}));
-  fetch('/api/next-song/songToList',{
+  const randomArtist = users && randomSong && users.find((userItem:any)=>userItem.id === randomSong.artistId).username;
+
+  dispatch(playMusicActions.startSong({songPath: randomSong.musicPath, songId:randomSong.id, imageUrl: randomSong.songCover, artists: [randomArtist], title:randomSong.title}));
+  fetch('api/next-song/songToList',{
     method:'POST',
     body:JSON.stringify({songId, userId:userData.id}),
     headers:{
@@ -206,11 +202,12 @@ if(userData.isSubscribed && randomSong){
 
 
   if(!userData.isSubscribed && userData.availableSkips > 0 && randomSong){
-    fetch(`api/next-song/${userData.id}`).then((result)=>result.json()).then((resultData)=>console.log(resultData));
+    fetch(`/api/next-song/${userData.id}`).then((result)=>result.json()).then((resultData)=>console.log(resultData));
+    const randomArtist = users && randomSong && users.find((userItem:any)=>userItem.id === randomSong.artistId).username;
     dispatch(playMusicActions.startSong({songPath: randomSong.musicPath, imageUrl: randomSong.songCover, artists:[randomArtist], title:randomSong.title, songId:randomSong.id}));
-    fetch('/api/next-song/songToList',{
+    fetch('api/next-song/songToList',{
       method:'POST',
-      body:JSON.stringify({songId, userId:userData && userData.id}),
+      body:JSON.stringify({songId, userId:userData.id}),
       headers:{
         'Content-Type':'application/json'
       }
@@ -241,9 +238,9 @@ const handleLike= async ()=>{
 
 const goBack= async ()=>{
   console.log(userData);
-  const fetchData= await fetch('/api/previousSong',{
+  const fetchData= await fetch('api/previousSong',{
     method:"POST",
-    body:JSON.stringify({songId}),
+    body:JSON.stringify({songId: songId}),
     headers:{
       'Content-Type':'application/json'
     }
@@ -251,12 +248,17 @@ const goBack= async ()=>{
 
   const data=await fetchData.json();
   console.log(data);
-  if(userData.isSubscribed){
-    toast.success('You are able to skip back');
-    const artist= users.find((item:any)=>item.id === data.artistId);
+  if(userData.isSubscribed && data){
+    const artist= users.find((item:any)=>item.id === data.artistId).username;
    dispatch(playMusicActions.startSong({songPath: data.musicPath, imageUrl: data.songCover, artists:[artist], title:data.title, songId:data.id}));
-  }else{
+  }
+  
+  if(!userData.isSubscribed && data){
     toast.error('You have to be subsribed to Clonify');
+  }
+
+  else{
+    return;
   }
 }
 

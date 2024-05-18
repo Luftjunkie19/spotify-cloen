@@ -15,9 +15,9 @@ import SongItem from '@/components/home-page/items/SongItem';
 import useCurrentUser from '@/hooks/useCurrentUser';
 import useSongs from '@/hooks/useSongs';
 
-interface Props {}
+type Props={}
 
-function LibraryPage({ }:Props) {
+export default function LibraryPage({}) {
   const { data } = useCurrentUser();
   const {data:songs}=useSongs();
   return (
@@ -30,7 +30,7 @@ function LibraryPage({ }:Props) {
           <p className="lg:text-7xl md:text-4xl sm:text-3xl font-medium">Liked Songs</p>
          <div className="flex items-center gap-6">
          <div className="flex gap-2 items-center">
-          <Image src={data.profileImg} alt="" width={32} height={32} className="w-8 h-8 rounded-full"/>
+          {data.profileImg ? <Image src={data.profileImg} alt="" width={32} height={32} className="w-8 h-8 rounded-full"/> : null}
           <p className="text-sm">{data.username}</p>
          </div>
 
@@ -87,10 +87,3 @@ function LibraryPage({ }:Props) {
     </div>
   )
 }
-
-
-
-
-
-
-export default LibraryPage
