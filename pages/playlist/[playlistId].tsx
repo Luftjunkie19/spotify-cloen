@@ -15,7 +15,7 @@ import useUsers from '@/hooks/useUsers';
 
 type Props = {}
 
-function PlaylistPage({}: InferGetStaticPropsType<typeof getStaticProps>) {
+function PlaylistPage({}) {
 const isPlaying=useSelector((state:any)=>state.playmusic.isPlaying);
   const router=useRouter();
   const {playlistId}=router.query;
@@ -89,23 +89,23 @@ return songObject;
 
 export default PlaylistPage
 
-export const getStaticPaths= async ()=>{
-  const data= await fetch('http://127.0.0.1/api/playlist/playlists');
-  const  playlists = await data.json();
+// export const getStaticPaths= async ()=>{
+//   const data= await fetch('http://127.0.0.1/api/playlist/playlists');
+//   const  playlists = await data.json();
 
-  const convertedPlaylists= playlists.map((item:any) => ({ params: { playlistId: item.id }}));
+//   const convertedPlaylists= playlists.map((item:any) => ({ params: { playlistId: item.id }}));
 
-return {
-  paths:convertedPlaylists,
-  fallback: 'blocking',
-}
-}
+// return {
+//   paths:convertedPlaylists,
+//   fallback: 'blocking',
+// }
+// }
 
-export const getStaticProps = async () => {
-  const data= await fetch(`http://127.0.0.1/api/playlist/playlists`);
-  const  playlists = await data.json();
+// export const getStaticProps = async () => {
+//   const data= await fetch(`http://127.0.0.1/api/playlist/playlists`);
+//   const  playlists = await data.json();
 
 
 
-  return {props:{playlists}};
-}
+//   return {props:{playlists}};
+// }

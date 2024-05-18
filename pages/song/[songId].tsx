@@ -30,7 +30,7 @@ import useUsers from '@/hooks/useUsers';
 
 type Props = {}
 
-function SongPage(props: InferGetStaticPropsType<typeof getStaticProps>) {
+function SongPage({}) {
 const router=useRouter();
 const {songId}=router.query;
 const {data}=useSongs(songId as string);
@@ -117,27 +117,27 @@ if(data && userData){
 export default SongPage
 
 
-export const getStaticProps= async ()=>{
-  const fetchedData= await fetch(`http://127.0.0.1/api/songs`);
-  const songs=await fetchedData.json();
+// export const getStaticProps= async ()=>{
+//   const fetchedData= await fetch(`http://localhost:3000/api/songs`);
+//   const songs=await fetchedData.json();
 
-  return {
-    props:{
-      songs
-    }
-  }
+//   return {
+//     props:{
+//       songs
+//     }
+//   }
   
-}
+// }
 
-export const getStaticPaths= async ()=>{
-const fetchedData= await fetch(`http://127.0.0.1/api/songs`);
-const songs=await fetchedData.json();
+// export const getStaticPaths= async ()=>{
+// const fetchedData= await fetch(`http://localhost:3000/api/songs`);
+// const songs=await fetchedData.json();
 
-const songsConvertedToParam=songs.map((song:any) => ({params: {songId: song.id}}));
+// const songsConvertedToParam=songs.map((song:any) => ({params: {songId: song.id}}));
 
-return {
-  paths: songsConvertedToParam,
-  fallback:'blocking'
-}
+// return {
+//   paths: songsConvertedToParam,
+//   fallback:'blocking'
+// }
 
-}
+// }

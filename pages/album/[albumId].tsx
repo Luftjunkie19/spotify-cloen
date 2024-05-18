@@ -23,7 +23,7 @@ import useUsers from '@/hooks/useUsers';
 
 type Props = {}
 
-function AlbumPage({}: InferGetStaticPropsType<typeof getStaticProps>) {
+function AlbumPage({}) {
 
     const isPlaying=useSelector((state:any)=>state.playmusic.isPlaying);
     const router=useRouter();
@@ -99,23 +99,23 @@ function AlbumPage({}: InferGetStaticPropsType<typeof getStaticProps>) {
 export default AlbumPage
 
 
-export const getStaticPaths= async ()=>{
-    const data= await fetch('http://localhost:3000/api/album/albums');
-    const  albums = await data.json();
+// export const getStaticPaths= async ()=>{
+//     const data= await fetch('http://localhost:3000/api/album/albums');
+//     const  albums = await data.json();
   
-    const convertedAlbums= albums.map((item:any) => ({ params: { albumId: item.id }}));
+//     const convertedAlbums= albums.map((item:any) => ({ params: { albumId: item.id }}));
   
-  return {
-    paths:convertedAlbums,
-    fallback: 'blocking',
-  }
-  }
+//   return {
+//     paths:convertedAlbums,
+//     fallback: 'blocking',
+//   }
+//   }
   
-  export const getStaticProps = async () => {
-    const data= await fetch('http://localhost:3000/api/album/albums');
-    const  albums = await data.json();
+//   export const getStaticProps = async () => {
+//     const data= await fetch('http://localhost:3000/api/album/albums');
+//     const  albums = await data.json();
   
   
   
-    return {props:{albums}};
-  }
+//     return {props:{albums}};
+//   }

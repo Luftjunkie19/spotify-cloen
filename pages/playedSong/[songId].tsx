@@ -13,7 +13,7 @@ import useCurrentUser from '@/hooks/useCurrentUser';
 
 interface Props {}
 
-function PlayedSongScreen({}: InferGetStaticPropsType<typeof getStaticProps>) {
+function PlayedSongScreen({}) {
     const router = useRouter();
       const songId = useSelector((state:any)=>state.playmusic.songId);
     const {data}=useSongs(songId as string);
@@ -72,27 +72,27 @@ export default PlayedSongScreen
 
 
 
-export const getStaticProps= async ()=>{
-    const fetchedData= await fetch(`http://127.0.0.1/api/songs`);
-    const songs=await fetchedData.json();
+// export const getStaticProps= async ()=>{
+//     const fetchedData= await fetch(`http://127.0.0.1/api/songs`);
+//     const songs=await fetchedData.json();
   
-    return {
-      props:{
-        songs
-      }
-    }
+//     return {
+//       props:{
+//         songs
+//       }
+//     }
     
-  }
+//   }
   
-  export const getStaticPaths= async ()=>{
-  const fetchedData= await fetch(`http://127.0.0.1/api/songs`);
-  const songs=await fetchedData.json();
+//   export const getStaticPaths= async ()=>{
+//   const fetchedData= await fetch(`http://127.0.0.1/api/songs`);
+//   const songs=await fetchedData.json();
   
-  const songsConvertedToParam=songs.map((song:any) => ({params: {songId: song.id}}));
+//   const songsConvertedToParam=songs.map((song:any) => ({params: {songId: song.id}}));
   
-  return {
-    paths: songsConvertedToParam,
-    fallback:'blocking'
-  }
+//   return {
+//     paths: songsConvertedToParam,
+//     fallback:'blocking'
+//   }
   
-  }
+//   }

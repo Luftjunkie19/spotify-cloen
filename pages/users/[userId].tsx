@@ -20,9 +20,9 @@ import useUsers from '@/hooks/useUsers';
 
 type Props = {}
 
-function UserDetailedPage({}: InferGetStaticPropsType<typeof getStaticProps>) {
+function UserDetailedPage({}) {
 const router= useRouter();
-    const { data: currentUser } = useCurrentUser();
+const { data: currentUser } = useCurrentUser();
 const {userId}=router.query;
 const {data}=useUsers(userId as string);
 const {data:artistData}=useArtist({artistId:userId as string});
@@ -115,23 +115,23 @@ const {data:artistData}=useArtist({artistId:userId as string});
 export default UserDetailedPage
 
 
-export const getStaticPaths= async () =>{
-    const fetchData= await fetch(`${process.env.NEXT_PUBLIC_URL}/api/users/allUsers`);
+// export const getStaticPaths= async () =>{
+//     const fetchData= await fetch(`${process.env.NEXT_PUBLIC_URL}/api/users/allUsers`);
 
-    const users= await  fetchData.json();
+//     const users= await  fetchData.json();
 
-    const convertedUsers= users.map((item:any)=>({params:{userId:item.id}}));
+//     const convertedUsers= users.map((item:any)=>({params:{userId:item.id}}));
 
-    return {
-        paths:convertedUsers,
-        fallback:'blocking'
-    }
-}
+//     return {
+//         paths:convertedUsers,
+//         fallback:'blocking'
+//     }
+// }
 
-export const getStaticProps=async ()=>{
-    const fetchData= await fetch(`${process.env.NEXT_PUBLIC_URL}/api/users/allUsers`);
+// export const getStaticProps=async ()=>{
+//     const fetchData= await fetch(`${process.env.NEXT_PUBLIC_URL}/api/users/allUsers`);
 
-    const users= await  fetchData.json();
+//     const users= await  fetchData.json();
 
-    return {props:{users}}
-}
+//     return {props:{users}}
+// }
