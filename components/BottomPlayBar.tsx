@@ -305,14 +305,14 @@ const goBack= async ()=>{
           <button><FaShuffle size={24}/></button>
           <button onClick={goBack}><MdSkipPrevious size={24} /></button>
           <SongManagmentBar muted={muted} looped={looped} ref={audioReference} songSource={songPath}/>
-          <button onClick={toggleSong}>
+          <button disabled={conditionalAdShow} onClick={toggleSong}>
             {isPlaying ? <FaPauseCircle size={36}/> : <IoPlayCircle size={36} />}
             </button>
           <button disabled={conditionalAdShow} onClick={goForward}><IoIosSkipForward  size={24}/></button>
           <button disabled={conditionalAdShow} onClick={toggleLoop}><RxLoop className={`${looped ? 'text-spotifyGreen' : 'text-white'}`}  size={24}/></button>
       </div>
         <div className="flex gap-1 items-center py-2">
-          <p className="text-xs text-spotifyLightGray">{Math.floor((currentTime / 60))}:{`${ (currentTime % 60) < 10 ? `0${Math.floor((currentTime % 60))}` : `${Math.floor((currentTime % 60))}`}`}</p>  
+          <p className="text-xs text-spotifyLightGray">{Math.floor((currentTime / 60))}:{`${(currentTime % 60) < 10 ? `0${Math.floor((currentTime % 60))}` : `${Math.floor((currentTime % 60))}`}`}</p>  
         <input disabled={conditionalAdShow} value={currentTime} min={0} max={duration} onChange={(e:React.ChangeEvent<HTMLInputElement>)=>{
           if(audioData){
             audioData.currentTime= +e.target.value;
@@ -344,9 +344,9 @@ const goBack= async ()=>{
     <div className={`${songPath && pathname.includes('playedSong') ? 'flex' : 'hidden'} bg-spotifyDarkGray fixed bottom-0 left-0 w-full items-center rounded-t-lg justify-center px-2 py-6 max-h-28 gap-2 flex-col`}>
       <div className="flex gap-6">
       <button><FaShuffle size={24}/></button>
-          <button onClick={goBack}><MdSkipPrevious size={24} /></button>
+          <button disabled={conditionalAdShow} onClick={goBack}><MdSkipPrevious size={24} /></button>
           <SongManagmentBar muted={muted} looped={looped} ref={audioReference} songSource={songPath}/>
-          <button onClick={toggleSong}>
+          <button disabled={conditionalAdShow} onClick={toggleSong}>
             {isPlaying ? <FaPauseCircle size={36}/> : <IoPlayCircle size={36} />}
             </button>
           <button disabled={conditionalAdShow} onClick={goForward}><IoIosSkipForward  size={24}/></button>
