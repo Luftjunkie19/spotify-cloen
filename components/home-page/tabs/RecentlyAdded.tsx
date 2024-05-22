@@ -34,8 +34,12 @@ function RecentlyAdded({ closedRight }: Props) {
       dispatch(playMusicActions.startSong({songPath: advertisement.musicPath, imageUrl: advertisement.songCover, artists: ['Clonify'], title:advertisement.title, songId:advertisement.id}));
       dispatch(nextSongActions.setNextSong({imageUrl: song.songCover, songPath:song.musicPath, title:song.title, artists:[artist], songId:song.id}))
     }else{
-
-      dispatch(playMusicActions.startSong({songCover:song.songCover, songLength:0, songPath:song.musicPath, title:song.title, artistList:[artist], songId:song.id}))
+      
+      const randomNextSong= data[Math.floor(Math.random() * data.filter((item:any)=>item.id !== song.id).length)];
+      dispatch(playMusicActions.startSong({songCover:song.songCover, songLength:0, songPath:song.musicPath, title:song.title, artistList:[artist], songId:song.id}));
+      if(randomNextSong){
+        dispatch(nextSongActions.setNextSong({imageUrl:randomNextSong.songCover, songPath:randomNextSong.musicPath, title:randomNextSong.title, artists:[`${randomNextSong.title}'s author`], songId:song.id}));
+      }
     }
   }
   

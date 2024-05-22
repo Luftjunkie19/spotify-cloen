@@ -57,6 +57,13 @@ function BottomPlayBar({ rightClosed, toggleRight }: Props) {
   const { data: users } = useUsers();
   const router=useRouter();
   const pathname = router.pathname;
+   //Next song data
+   const nextSongCover=useSelector((state: any) => state.nextSong.imageUrl);
+   const nextSongArtists=useSelector((state: any) => state.nextSong.artists);
+   const nextSongTitle=useSelector((state: any) => state.nextSong.title);
+   const nextSongId=useSelector((state: any) => state.nextSong.songId);
+   const nextSongPath= useSelector((state: any) => state.nextSong.songPath);
+ 
 
 
   useEffect(()=>{
@@ -181,10 +188,8 @@ const toggleMute=()=>{
 
 const goForward=()=>{
 
-  const randomSong = songs && songs.filter((item:any)=>item.id !== songId)[Math.floor(Math.random() * songs.filter((item:any)=>item.id !== songId).length)];
+  const randomSong = songs && songs.filter((item:any)=>item.id !== songId && item.id !== nextSongId)[Math.floor(Math.random() * songs.filter((item:any)=>item.id !== songId && item.id !== nextSongId).length)];
   
-
-
 if(audioData){
   audioData.currentTime=0;
   setMoment(0);
@@ -193,7 +198,9 @@ if(audioData){
 if(userData.isSubscribed && randomSong){
   const randomArtist = users && randomSong && users.find((userItem:any)=>userItem.id === randomSong.artistId).username;
 
-  dispatch(playMusicActions.startSong({songPath: randomSong.musicPath, songId:randomSong.id, imageUrl: randomSong.songCover, artists: [randomArtist], title:randomSong.title}));
+  dispatch(playMusicActions.startSong({songPath: nextSongPath, songId:nextSongId, songCover:nextSongCover, artists:nextSongArtists , title:randomSong.title}));
+  dispatch(nextSongActions.setNextSong({imageUrl:randomSong.songCover, title:randomSong.title, artists: [randomArtist], songPath:randomSong.musicPath, songId:randomSong.id}));
+ 
   fetch('api/next-song/songToList',{
     method:'POST',
     body:JSON.stringify({songId, userId:userData.id}),
@@ -209,7 +216,8 @@ if(userData.isSubscribed && randomSong){
   if(!userData.isSubscribed && userData.availableSkips > 0 && randomSong){
     fetch(`/api/next-song/${userData.id}`).then((result)=>result.json()).then((resultData)=>console.log(resultData));
     const randomArtist = users && randomSong && users.find((userItem:any)=>userItem.id === randomSong.artistId).username;
-    dispatch(playMusicActions.startSong({songPath: randomSong.musicPath, imageUrl: randomSong.songCover, artists:[randomArtist], title:randomSong.title, songId:randomSong.id}));
+    dispatch(playMusicActions.startSong({songPath: nextSongPath, songId:nextSongId, songCover:nextSongCover, artists:nextSongArtists , title:randomSong.title}));
+    dispatch(nextSongActions.setNextSong({imageUrl:randomSong.songCover, title:randomSong.title, artists: [randomArtist], songPath:randomSong.musicPath, songId:randomSong.id}))
     fetch('api/next-song/songToList',{
       method:'POST',
       body:JSON.stringify({songId, userId:userData.id}),

@@ -36,7 +36,6 @@ const router=useRouter();
 const {songId}=router.query;
 const {data}=useSongs(songId as string);
 const {data:currentUserData}=useCurrentUser();
-const songRef= useRef<HTMLAudioElement>(null);
 const showRight = useSelector((state:any)=>state.playmusic.showRightBar);
 const {data:userData}=useUsers(data?.artistId!);
 const {data:users}=useUsers();
