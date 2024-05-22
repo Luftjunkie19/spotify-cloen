@@ -54,9 +54,9 @@ const handlePlay=()=>{
     
     dispatch(playMusicActions.startSong({songPath: advertisement.musicPath, songCover: advertisement.songCover, artists: ['Clonify'], title:advertisement.title, songId:advertisement.id}));
     
-    if(randomSong){
+  
       dispatch(nextSongActions.setNextSong({imageUrl: randomSong.songCover, songPath:randomSong.musicPath, title:randomSong.title, artists:[`${randomSong.title}'s song`], songId:randomSong.id}))
-    }
+    
   }
   else{
 if(data && userData){
@@ -64,9 +64,9 @@ if(data && userData){
     const artist = users && users.find((user: any) => user.id === data.artistId).username;
   console.log(users && users.find((user: any) => user.id === data.artistId));
   dispatch(playMusicActions.startSong({songCover:data.songCover, songLength:0, songPath:data.musicPath, title:data.title, artistList:[artist], songId:data.id}));
-  if(randomSong){
+
     dispatch(nextSongActions.setNextSong({imageUrl: randomSong.songCover, songPath:randomSong.musicPath, title:randomSong.title, artists:[`${randomSong.title}'s song`], songId:randomSong.id}))
-  }  
+    
 }
 }
   }
