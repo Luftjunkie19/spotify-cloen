@@ -28,6 +28,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import SongManagmentBar from './SongManagmentBar';
 import useAdvertisement from '@/hooks/useAdvertisement';
+import { nextSongActions } from '@/contexts/NextSongContext';
 
 type Props = {
   rightClosed: boolean,
@@ -94,7 +95,7 @@ const handleEnded=()=>{
   if(conditionalAdShow && userData && advertisement){
 
      dispatch(playMusicActions.startSong({songPath: advertisement.musicPath, imageUrl: advertisement && advertisement.songCover, artists: ['Clonify'], title:advertisement.title, songId:advertisement.id}));
-
+     
     fetch('/api/updateUser', {
       method:'POST',
       body:JSON.stringify({id:userData.id, updateAds: conditionalAdShow}),

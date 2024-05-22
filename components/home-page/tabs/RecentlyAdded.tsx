@@ -13,6 +13,7 @@ import useCurrentUser from '@/hooks/useCurrentUser';
 import useSongs from '@/hooks/useSongs';
 import useUsers from '@/hooks/useUsers';
 import useAdvertisement from '@/hooks/useAdvertisement';
+import { nextSongActions } from '@/contexts/NextSongContext';
 
 type Props = {
   closedRight: boolean;
@@ -27,13 +28,13 @@ function RecentlyAdded({ closedRight }: Props) {
   const colourArray = ['bg-red-300', ' bg-yellow-500', 'bg-green-200', 'bg-blue-400', 'bg-purple-600', 'bg-pink-700', ' bg-red-700'];
   const conditionalAdShow= userData && !userData.isSubscribed && (new Date().getTime() -  new Date(userData.pastFromLastAds).getTime()) / 60000 >= 30;
   const handleSong = (song: any) => {
+    const artist = users.find((userData: any) => userData.id === song.artistId)?.username;
     if(conditionalAdShow && userData){
       
       dispatch(playMusicActions.startSong({songPath: advertisement.musicPath, imageUrl: advertisement.songCover, artists: ['Clonify'], title:advertisement.title, songId:advertisement.id}));
-  
+      dispatch(nextSongActions.setNextSong({imageUrl: song.songCover, songPath:song.musicPath, title:song.title, artists:[artist], songId:song.id}))
     }else{
 
-      const artist = users.find((userData: any) => userData.id === song.artistId)?.username;
       dispatch(playMusicActions.startSong({songCover:song.songCover, songLength:0, songPath:song.musicPath, title:song.title, artistList:[artist], songId:song.id}))
     }
   }
