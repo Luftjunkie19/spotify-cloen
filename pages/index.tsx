@@ -4,7 +4,7 @@ import { getSession } from 'next-auth/react';
 import { useRouter } from 'next/router';
 import { useSelector } from 'react-redux';
 
-import InitalTabs from '@/components/home-page/InitalTabs';
+import InitalTabs from '@/components/home-page/tabs/InitalTabs';
 import RecentAlbums from '@/components/home-page/tabs/RecentAlbums';
 import RecentlyAdded from '@/components/home-page/tabs/RecentlyAdded';
 import RecentPlaylists from '@/components/home-page/tabs/RecentPlaylists';

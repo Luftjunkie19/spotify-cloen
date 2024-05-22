@@ -27,6 +27,7 @@ import useCurrentUser from '@/hooks/useCurrentUser';
 import useListenedSong from '@/hooks/useListenedSong';
 import useSongs from '@/hooks/useSongs';
 import useUsers from '@/hooks/useUsers';
+import useAdvertisement from '@/hooks/useAdvertisement';
 
 type Props = {}
 
@@ -39,6 +40,7 @@ const songRef= useRef<HTMLAudioElement>(null);
 const showRight = useSelector((state:any)=>state.playmusic.showRightBar);
 const {data:userData}=useUsers(data?.artistId!);
 const {data:users}=useUsers();
+const {data:advertisement}=useAdvertisement();
 const {data:listenedTimes}=useListenedSong(data?.id!);
 const dispatch= useDispatch();
 const isPlaying=useSelector((state:any)=>state.playmusic.isPlaying);
@@ -48,7 +50,7 @@ const conditionalAdShow= currentUserData && !currentUserData.isSubscribed && (ne
 const handlePlay=()=>{
   if(conditionalAdShow && currentUserData){
     
-    dispatch(playMusicActions.startSong({songPath:'@/public/advertisement/spotifyAd.mp3', imageUrl:null, artists:['Clonify'], title:'Advertistement', songId:'AddVertisement'}));
+    dispatch(playMusicActions.startSong({songPath: advertisement.musicPath, imageUrl: advertisement.songCover, artists: ['Clonify'], title:advertisement.title, songId:advertisement.id}));
   }else{
 if(data && userData){
   if(users){

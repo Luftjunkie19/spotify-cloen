@@ -27,6 +27,7 @@ import useUsers from '@/hooks/useUsers';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import SongManagmentBar from './SongManagmentBar';
+import useAdvertisement from '@/hooks/useAdvertisement';
 
 type Props = {
   rightClosed: boolean,
@@ -51,6 +52,7 @@ function BottomPlayBar({ rightClosed, toggleRight }: Props) {
   const [looped, setLooped]=useState(false);
   const [muted, setMuted]=useState(false);
   const [volumeLevel, setVolumeLevel] = useState(100);
+  const {data:advertisement}=useAdvertisement();
   const { data: users } = useUsers();
   const router=useRouter();
   const pathname = router.pathname;
@@ -89,8 +91,10 @@ const handleEnded=()=>{
       }
     }).then(result=>result.json()).then(data=>data);
   }
-  if(conditionalAdShow && userData){
-    dispatch(playMusicActions.startSong({sourcePath:'./advertisement/spotifyAd.mp3', imageUrl:MusicImage, artists:['Clonify'], title:'Advertistement', songId:'AddVertisement'}));
+  if(conditionalAdShow && userData && advertisement){
+
+     dispatch(playMusicActions.startSong({songPath: advertisement.musicPath, imageUrl: advertisement && advertisement.songCover, artists: ['Clonify'], title:advertisement.title, songId:advertisement.id}));
+
     fetch('/api/updateUser', {
       method:'POST',
       body:JSON.stringify({id:userData.id, updateAds: conditionalAdShow}),

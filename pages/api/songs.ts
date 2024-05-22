@@ -9,6 +9,11 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
 
 
         const songs = await prisma.song.findMany({
+          where:{
+            NOT:{
+              id:'664d8a593439cb8731e2cd06'
+            }
+          },
             orderBy: {
                 releaseDate: 'desc'
             }

@@ -12,6 +12,7 @@ import { playMusicActions } from '@/contexts/PlayMusicContext';
 import useCurrentUser from '@/hooks/useCurrentUser';
 import useSongs from '@/hooks/useSongs';
 import useUsers from '@/hooks/useUsers';
+import useAdvertisement from '@/hooks/useAdvertisement';
 
 type Props = {
   closedRight: boolean;
@@ -20,6 +21,7 @@ type Props = {
 function RecentlyAdded({ closedRight }: Props) {
   const dispatch = useDispatch();
   const {data:userData}=useCurrentUser();
+  const {data:advertisement}=useAdvertisement();
   const { data, isLoading } = useSongs();
   const { data: users, isLoading:usersLoading } = useUsers();
   const colourArray = ['bg-red-300', ' bg-yellow-500', 'bg-green-200', 'bg-blue-400', 'bg-purple-600', 'bg-pink-700', ' bg-red-700'];
@@ -27,7 +29,8 @@ function RecentlyAdded({ closedRight }: Props) {
   const handleSong = (song: any) => {
     if(conditionalAdShow && userData){
       
-      dispatch(playMusicActions.startSong({songPath:'./advertisement/spotifyAd.mp3', imageUrl:null, artists:['Clonify'], title:'Advertistement', songId:'AddVertisement'}));
+      dispatch(playMusicActions.startSong({songPath: advertisement.musicPath, imageUrl: advertisement.songCover, artists: ['Clonify'], title:advertisement.title, songId:advertisement.id}));
+  
     }else{
 
       const artist = users.find((userData: any) => userData.id === song.artistId)?.username;
