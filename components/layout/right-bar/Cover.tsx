@@ -22,7 +22,6 @@ type Props = {
 }
 
 function Cover({ title, imageURL, artists, close, songId }: Props) {
-    const {data:songs}=useSongs();
     const {data:userData}=useCurrentUser();
 
     

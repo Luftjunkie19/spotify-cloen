@@ -13,7 +13,6 @@ import NextSong from './layout/right-bar/NextSong';
 
 function RightBar() {
   const songCover = useSelector((state: any) => state.playmusic.imageUrl);
-  const isPlaying = useSelector((state: any) => state.playmusic.isPlaying);
   const songTitle = useSelector((state: any) => state.playmusic.title);
   const artists = useSelector((state: any) => state.playmusic.artists);
   const showRight = useSelector((state: any) => state.playmusic.showRightBar);

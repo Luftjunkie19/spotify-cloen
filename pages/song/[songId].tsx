@@ -28,6 +28,7 @@ import useListenedSong from '@/hooks/useListenedSong';
 import useSongs from '@/hooks/useSongs';
 import useUsers from '@/hooks/useUsers';
 import useAdvertisement from '@/hooks/useAdvertisement';
+import { nextSongActions } from '@/contexts/NextSongContext';
 
 type Props = {}
 
@@ -38,6 +39,7 @@ const {data}=useSongs(songId as string);
 const {data:currentUserData}=useCurrentUser();
 const showRight = useSelector((state:any)=>state.playmusic.showRightBar);
 const {data:userData}=useUsers(data?.artistId!);
+const {data:songs}=useSongs();
 const {data:users}=useUsers();
 const {data:advertisement}=useAdvertisement();
 const {data:listenedTimes}=useListenedSong(data?.id!);
@@ -47,16 +49,25 @@ const conditionalAdShow= currentUserData && !currentUserData.isSubscribed && (ne
 
 
 const handlePlay=()=>{
+  const randomSong = songs && songs.filter((item:any)=>item.id !== songId && item.id !== data.id)[Math.floor(Math.random() * songs.filter((item:any)=>item.id !== songId && item.id !== data.id).length)];
   if(conditionalAdShow && currentUserData){
     
-    dispatch(playMusicActions.startSong({songPath: advertisement.musicPath, imageUrl: advertisement.songCover, artists: ['Clonify'], title:advertisement.title, songId:advertisement.id}));
-  }else{
+    dispatch(playMusicActions.startSong({songPath: advertisement.musicPath, songCover: advertisement.songCover, artists: ['Clonify'], title:advertisement.title, songId:advertisement.id}));
+    
+    if(randomSong){
+      dispatch(nextSongActions.setNextSong({imageUrl: randomSong.songCover, songPath:randomSong.musicPath, title:randomSong.title, artists:[`${randomSong.title}'s song`], songId:randomSong.id}))
+    }
+  }
+  else{
 if(data && userData){
   if(users){
     const artist = users && users.find((user: any) => user.id === data.artistId).username;
   console.log(users && users.find((user: any) => user.id === data.artistId));
   dispatch(playMusicActions.startSong({songCover:data.songCover, songLength:0, songPath:data.musicPath, title:data.title, artistList:[artist], songId:data.id}));
-  }
+  if(randomSong){
+    dispatch(nextSongActions.setNextSong({imageUrl: randomSong.songCover, songPath:randomSong.musicPath, title:randomSong.title, artists:[`${randomSong.title}'s song`], songId:randomSong.id}))
+  }  
+}
 }
   }
 }
